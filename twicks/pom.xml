@@ -1,0 +1,178 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>in.ac.vit</groupId>
+	<artifactId>twicks</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>twicks</name>
+
+	<properties>
+		<version.javax.servlet.jstl>1.2</version.javax.servlet.jstl>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Apache Mahout -->
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-core</artifactId>
+			<version>0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-integration</artifactId>
+			<version>0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-utils</artifactId>
+			<version>0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-math</artifactId>
+			<version>0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mahout</groupId>
+			<artifactId>mahout-examples</artifactId>
+			<version>0.7</version>
+		</dependency>
+		<!-- End of Apache Mahout -->
+		<!-- JSTL 1.2 or + -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${version.javax.servlet.jstl}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- End of JSTL 1.2 or + -->
+		<!-- apache commons -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<!-- End of apache commons -->
+		<!-- restfb -->
+		<dependency>
+			<groupId>com.restfb</groupId>
+			<artifactId>restfb</artifactId>
+			<version>1.6.11</version>
+		</dependency>
+		<!-- End of restFb -->
+		<!-- logging dependencies -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jcl</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+		<!-- End of logging dependencies -->
+		<!-- Twitter4j -->
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-core</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.twitter4j</groupId>
+			<artifactId>twitter4j-examples</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<!-- end of twitter4j -->
+
+		<!-- Hadoop -->
+		<dependency>
+			<groupId>org.apache.mahout.hadoop</groupId>
+			<artifactId>hadoop-core</artifactId>
+			<version>0.20.1</version>
+		</dependency>
+		<!-- end of hadoop -->
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<compilerArguments>
+							<endorseddirs>${endorsed.dir}</endorseddirs>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1.1</version>
+					<configuration>
+						<failOnMissingWebXml>false</failOnMissingWebXml>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>2.1</version>
+					<executions>
+						<execution>
+							<phase>validate</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${endorsed.dir}</outputDirectory>
+								<silent>true</silent>
+								<artifactItems>
+									<artifactItem>
+										<groupId>javax</groupId>
+										<artifactId>javaee-endorsed-api</artifactId>
+										<version>6.0</version>
+										<type>jar</type>
+									</artifactItem>
+								</artifactItems>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

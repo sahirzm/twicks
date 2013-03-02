@@ -3,7 +3,7 @@
  * different data sources
  * 
  */
-package in.ac.vit.twicks.datastorage.apis;
+package in.ac.vit.twicks.datastorage.service.api;
 
 import in.ac.vit.twicks.search.statuses.Status;
 

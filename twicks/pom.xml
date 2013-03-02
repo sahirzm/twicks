@@ -98,7 +98,6 @@
 			<artifactId>slf4j-jcl</artifactId>
 			<version>1.6.0</version>
 		</dependency>
-
 		<!-- End of logging dependencies -->
 		<!-- Twitter4j -->
 		<dependency>
@@ -121,6 +120,41 @@
 		</dependency>
 		<!-- end of hadoop -->
 
+		<!-- Postgresql drivers -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+
+		<!-- End of pgsql drivers -->
+		<!-- Hibernate -->
+
+		<!-- JSR-303 (Bean Validation) Implementation -->
+		<!-- Provides portable constraints such as @Email -->
+		<!-- Hibernate Validator is shipped in JBoss AS 7 -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.1.9.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.9.Final</version>
+		</dependency>
+		<!-- end of hibernate -->
 	</dependencies>
 
 	<build>

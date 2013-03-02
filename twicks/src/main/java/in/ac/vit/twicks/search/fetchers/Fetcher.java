@@ -4,7 +4,8 @@
  */
 package in.ac.vit.twicks.search.fetchers;
 
-import in.ac.vit.twicks.datastorage.apis.StatusService;
+import in.ac.vit.twicks.datastorage.service.api.StatusService;
+import in.ac.vit.twicks.entities.Production;
 import in.ac.vit.twicks.search.statuses.Status;
 
 import java.util.Iterator;
@@ -23,6 +24,10 @@ public abstract class Fetcher implements Runnable {
 	private String startTimestamp;
 	private String endTimeStamp;
 
+	@Inject
+	@Production
+	private StatusService statusService;
+
 	public Fetcher() {
 
 	}
@@ -38,38 +43,36 @@ public abstract class Fetcher implements Runnable {
 	 * @return List of status
 	 */
 	public abstract List<Status> fetch(int productId, String keywords);
-	
-	public void initialize(String startTimeStamp, String endTimeStamp, Map<Integer, String> products) {
-		this.startTimestamp = startTimeStamp;
-		this.endTimeStamp = endTimeStamp;
-		this.products = products;
-	}
 
-	public void run() {
-		Set<Integer> keys = products.keySet();
-		Iterator<Integer> it = keys.iterator();
-		while (it.hasNext()) {
-			Integer key = it.next();
-			List<Status> statuses = this.fetch(key, products.get(key));
-			for (Status status : statuses) {
-				this.getStatusService().storeStatus(status);
-			}
-		}
+	protected String getEndTimeStamp() {
+		return this.endTimeStamp;
 	}
 
 	protected String getStartTimeStamp() {
 		return this.startTimestamp;
 	}
 
-	protected String getEndTimeStamp() {
-		return this.endTimeStamp;
-	}
-
-	@Inject
-	private StatusService statusService;
-
 	protected StatusService getStatusService() {
 		return this.statusService;
+	}
+
+	public void initialize(String startTimeStamp, String endTimeStamp, Map<Integer, String> products) {
+		this.startTimestamp = startTimeStamp;
+		this.endTimeStamp = endTimeStamp;
+		this.products = products;
+	}
+
+	@Override
+	public void run() {
+		Set<Integer> keys = this.products.keySet();
+		Iterator<Integer> it = keys.iterator();
+		while (it.hasNext()) {
+			Integer key = it.next();
+			List<Status> statuses = this.fetch(key, this.products.get(key));
+			for (Status status : statuses) {
+				this.getStatusService().storeStatus(status);
+			}
+		}
 	}
 
 }

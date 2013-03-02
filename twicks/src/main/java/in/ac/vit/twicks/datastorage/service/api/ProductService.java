@@ -3,9 +3,9 @@
  */
 package in.ac.vit.twicks.datastorage.service.api;
 
-import java.util.List;
-
 import in.ac.vit.twicks.entities.Product;
+
+import java.util.List;
 
 /**
  * @author sahir
@@ -14,11 +14,15 @@ import in.ac.vit.twicks.entities.Product;
 public interface ProductService {
 
 	Product create(Product product);
-	Product update(Product product);
-	Product getById(Integer id);
 	void delete(Product product);
 	void deleteById(Integer productId);
-	
+	List<Product> getAll();
 	List<Product> getAllByCompanyId(Integer companyId);
-		
+
+	List<Product> getAllToFetch();
+
+	Product getById(Integer id);
+
+	Product update(Product product);
+
 }

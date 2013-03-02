@@ -6,11 +6,13 @@ package in.ac.vit.twicks.datastorage.doa.postgres;
 import in.ac.vit.twicks.datastorage.doa.CompanyDao;
 import in.ac.vit.twicks.entities.Company;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  * @author sahir
@@ -50,6 +52,15 @@ public class CompanyDaoImpl implements CompanyDao {
 	public Company getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Company> getBySubscriptionDate(Date date) {
+		Query query = this.getEntityManager().createNamedQuery(
+				"companiesBySubDate", Company.class);
+		query.setParameter("date", date);
+		return query.getResultList();
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  * @author sahir
@@ -40,10 +41,13 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getAllByCompanyId(Integer companyId) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = this.getEntityManager().createNamedQuery(
+				"productsByCompanyId", Product.class);
+		query.setParameter("companyId", companyId);
+		return query.getResultList();
 	}
 
 	@Override

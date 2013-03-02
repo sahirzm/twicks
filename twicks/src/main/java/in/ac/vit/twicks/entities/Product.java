@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -16,7 +18,9 @@ import javax.persistence.SequenceGenerator;
  * The persistent class for the product database table.
  * 
  */
+
 @Entity
+@NamedQueries({ @NamedQuery(name = "productsByCompanyId", query = "SELECT p FROM Product p where p.company.id = :companyId") })
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -42,87 +46,10 @@ public class Product implements Serializable {
 	public Product() {
 	}
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Date getCreatedon() {
-		return this.createdon;
-	}
-
-	public void setCreatedon(Date createdon) {
-		this.createdon = createdon;
-	}
-
-	public String getKeywords() {
-		return this.keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Company getCompany() {
-		return this.company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-	public List<Result> getResults() {
-		return this.results;
-	}
-
-	public void setResults(List<Result> results) {
-		this.results = results;
-	}
-
 	public Result addResult(Result result) {
-		getResults().add(result);
+		this.getResults().add(result);
 		result.setProduct(this);
 
-		return result;
-	}
-
-	public Result removeResult(Result result) {
-		getResults().remove(result);
-		result.setProduct(null);
-
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", createdon=" + createdon + ", keywords="
-				+ keywords + ", name=" + name + ", company=" + company
-				+ ", results=" + results + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result
-				+ ((createdon == null) ? 0 : createdon.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((keywords == null) ? 0 : keywords.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((results == null) ? 0 : results.hashCode());
 		return result;
 	}
 
@@ -138,15 +65,92 @@ public class Product implements Serializable {
 			return false;
 		}
 		Product other = (Product) obj;
-		if (id == null) {
+		if (this.id == null) {
 			if (other.id != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!this.id.equals(other.id)) {
 			return false;
 		}
 
 		return true;
+	}
+
+	public Company getCompany() {
+		return this.company;
+	}
+
+	public Date getCreatedon() {
+		return this.createdon;
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public String getKeywords() {
+		return this.keywords;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public List<Result> getResults() {
+		return this.results;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result) + ((this.company == null) ? 0 : this.company.hashCode());
+		result = (prime * result)
+				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
+		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result)
+				+ ((this.keywords == null) ? 0 : this.keywords.hashCode());
+		result = (prime * result) + ((this.name == null) ? 0 : this.name.hashCode());
+		result = (prime * result) + ((this.results == null) ? 0 : this.results.hashCode());
+		return result;
+	}
+
+	public Result removeResult(Result result) {
+		this.getResults().remove(result);
+		result.setProduct(null);
+
+		return result;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public void setCreatedon(Date createdon) {
+		this.createdon = createdon;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setResults(List<Result> results) {
+		this.results = results;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + this.id + ", createdon=" + this.createdon + ", keywords="
+				+ this.keywords + ", name=" + this.name + ", company=" + this.company
+				+ ", results=" + this.results + "]";
 	}
 
 }

@@ -13,10 +13,12 @@ import java.util.List;
  */
 public interface CompanyService {
 	Company create(Company company);
-	Company update(Company company);
-	Company getById(Integer id);
 	void delete(Company company);
 	void deleteById(Integer companyId);
-	
+	List<Company> getActiveCompanies();
 	List<Company> getAll();
+
+	Company getById(Integer id);
+
+	Company update(Company company);
 }

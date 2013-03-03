@@ -7,7 +7,6 @@ package in.ac.vit.twicks.search.fetchers;
 
 import in.ac.vit.twicks.datastorage.service.api.ProductService;
 import in.ac.vit.twicks.entities.Product;
-import in.ac.vit.twicks.entities.Production;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -37,25 +36,27 @@ public class FetchingService {
 	@Inject
 	@Any
 	private Instance<Fetcher> fetchers;
+
 	private Logger logger = Logger.getLogger(this.getClass());
 
 	@Inject
-	@Production
 	private ProductService productService;
 
 	@Schedule(hour = "*")
 	public void startFetchers() {
-
+		this.logger.info("Starting fetcher services...");
+		System.out.println("Here");
 		Map<Integer, String> products = new HashMap<>();
+		this.logger.info("Getting list of products...");
 		List<Product> activeProducts = this.getProductService().getAllToFetch();
 		for (Product product : activeProducts) {
 			products.put(product.getId(), product.getKeywords());
 		}
 		Calendar calendar = Calendar.getInstance();
 
-		String startTimeStamp = calendar.getTimeInMillis() + "";
-		calendar.add(Calendar.HOUR_OF_DAY, 1);
 		String endTimeStamp = calendar.getTimeInMillis() + "";
+		calendar.add(Calendar.HOUR_OF_DAY, -1);
+		String startTimeStamp = calendar.getTimeInMillis() + "";
 
 		Iterator<Fetcher> it = this.fetchers.iterator();
 		ExecutorService threads = Executors.newFixedThreadPool(5);
@@ -67,13 +68,17 @@ public class FetchingService {
 			threads.execute(fetcher);
 		}
 		try {
+			threads.shutdown();
 			while (!threads.awaitTermination(5, TimeUnit.MINUTES)) {
 				;
-				// TODO Fire Event here saying data fetching complete
+
 			}
+			// TODO Fire Event here saying data fetching complete
+			this.logger.info("Fetching Complete event fired...");
 		} catch (InterruptedException e) {
 			this.logger
-			.error("Fetching Service interrupted. " + e.getMessage());
+					.error("Fetching Service interrupted. "
+					+ e.getMessage());
 		}
 	}
 

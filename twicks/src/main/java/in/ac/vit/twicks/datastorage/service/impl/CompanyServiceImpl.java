@@ -11,7 +11,6 @@ package in.ac.vit.twicks.datastorage.service.impl;
 import in.ac.vit.twicks.datastorage.doa.CompanyDao;
 import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.entities.Company;
-import in.ac.vit.twicks.entities.Production;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,6 @@ import javax.inject.Inject;
 public class CompanyServiceImpl implements CompanyService {
 
 	@Inject
-	@Production
 	private CompanyDao companyDao;
 
 	@Override

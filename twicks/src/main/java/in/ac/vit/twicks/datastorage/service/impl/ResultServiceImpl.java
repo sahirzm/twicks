@@ -5,7 +5,6 @@ package in.ac.vit.twicks.datastorage.service.impl;
 
 import in.ac.vit.twicks.datastorage.doa.ResultDao;
 import in.ac.vit.twicks.datastorage.service.api.ResultService;
-import in.ac.vit.twicks.entities.Production;
 import in.ac.vit.twicks.entities.Result;
 import in.ac.vit.twicks.search.fetchers.Sources;
 
@@ -22,7 +21,6 @@ import javax.inject.Inject;
 public class ResultServiceImpl implements ResultService{
 
 	@Inject
-	@Production
 	private ResultDao resultDao;
 
 	@Override

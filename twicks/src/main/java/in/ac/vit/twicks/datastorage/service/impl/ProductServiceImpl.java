@@ -8,7 +8,6 @@ import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.datastorage.service.api.ProductService;
 import in.ac.vit.twicks.entities.Company;
 import in.ac.vit.twicks.entities.Product;
-import in.ac.vit.twicks.entities.Production;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +23,9 @@ import javax.inject.Inject;
 public class ProductServiceImpl implements ProductService {
 
 	@Inject
-	@Production
 	private ProductDao productDao;
 
 	@Inject
-	@Production
 	private CompanyService companyService;
 
 	@Override

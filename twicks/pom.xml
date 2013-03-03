@@ -81,24 +81,6 @@
 			<version>1.6.11</version>
 		</dependency>
 		<!-- End of restFb -->
-		<!-- logging dependencies -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jcl</artifactId>
-			<version>1.6.0</version>
-		</dependency>
-		<!-- End of logging dependencies -->
 		<!-- Twitter4j -->
 		<dependency>
 			<groupId>org.twitter4j</groupId>
@@ -111,7 +93,12 @@
 			<version>3.0.3</version>
 		</dependency>
 		<!-- end of twitter4j -->
-
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Hadoop -->
 		<dependency>
 			<groupId>org.apache.mahout.hadoop</groupId>
@@ -175,9 +162,6 @@
 					<configuration>
 						<source>1.7</source>
 						<target>1.7</target>
-						<compilerArguments>
-							<endorseddirs>${endorsed.dir}</endorseddirs>
-						</compilerArguments>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -188,31 +172,7 @@
 						<failOnMissingWebXml>false</failOnMissingWebXml>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.1</version>
-					<executions>
-						<execution>
-							<phase>validate</phase>
-							<goals>
-								<goal>copy</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${endorsed.dir}</outputDirectory>
-								<silent>true</silent>
-								<artifactItems>
-									<artifactItem>
-										<groupId>javax</groupId>
-										<artifactId>javaee-endorsed-api</artifactId>
-										<version>6.0</version>
-										<type>jar</type>
-									</artifactItem>
-								</artifactItems>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+
 			</plugins>
 		</pluginManagement>
 	</build>

@@ -1,6 +1,6 @@
-package in.ac.vit.twicks.datastorage.doa.postgres;
+package in.ac.vit.twicks.datastorage.dao.postgres;
 
-import in.ac.vit.twicks.datastorage.doa.UserDao;
+import in.ac.vit.twicks.datastorage.dao.UserDao;
 import in.ac.vit.twicks.entities.User;
 
 import java.util.List;

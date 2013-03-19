@@ -1,9 +1,9 @@
 /**
  * 
  */
-package in.ac.vit.twicks.datastorage.doa.postgres;
+package in.ac.vit.twicks.datastorage.dao.postgres;
 
-import in.ac.vit.twicks.datastorage.doa.ProductDao;
+import in.ac.vit.twicks.datastorage.dao.ProductDao;
 import in.ac.vit.twicks.entities.Product;
 
 import java.util.List;

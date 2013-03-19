@@ -3,7 +3,7 @@
  */
 package in.ac.vit.twicks.datastorage.service.impl;
 
-import in.ac.vit.twicks.datastorage.doa.ResultDao;
+import in.ac.vit.twicks.datastorage.dao.ResultDao;
 import in.ac.vit.twicks.datastorage.service.api.ResultService;
 import in.ac.vit.twicks.entities.Result;
 import in.ac.vit.twicks.search.fetchers.Sources;

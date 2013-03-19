@@ -1,7 +1,7 @@
 /**
  * 
  */
-package in.ac.vit.twicks.datastorage.doa;
+package in.ac.vit.twicks.datastorage.dao;
 
 import java.util.List;
 

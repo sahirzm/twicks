@@ -1,9 +1,9 @@
 /**
  * 
  */
-package in.ac.vit.twicks.datastorage.doa.postgres;
+package in.ac.vit.twicks.datastorage.dao.postgres;
 
-import in.ac.vit.twicks.datastorage.doa.ResultDao;
+import in.ac.vit.twicks.datastorage.dao.ResultDao;
 import in.ac.vit.twicks.entities.Result;
 import in.ac.vit.twicks.search.fetchers.Sources;
 

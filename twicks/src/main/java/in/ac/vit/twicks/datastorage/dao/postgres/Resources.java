@@ -4,7 +4,7 @@
  * 
  */
 
-package in.ac.vit.twicks.datastorage.doa.postgres;
+package in.ac.vit.twicks.datastorage.dao.postgres;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;

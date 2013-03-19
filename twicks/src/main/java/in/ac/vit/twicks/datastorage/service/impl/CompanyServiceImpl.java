@@ -8,7 +8,7 @@ package in.ac.vit.twicks.datastorage.service.impl;
  * @author sahir maredia
  */
 
-import in.ac.vit.twicks.datastorage.doa.CompanyDao;
+import in.ac.vit.twicks.datastorage.dao.CompanyDao;
 import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.entities.Company;
 

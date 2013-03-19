@@ -3,7 +3,7 @@
  */
 package in.ac.vit.twicks.datastorage.service.impl;
 
-import in.ac.vit.twicks.datastorage.doa.ProductDao;
+import in.ac.vit.twicks.datastorage.dao.ProductDao;
 import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.datastorage.service.api.ProductService;
 import in.ac.vit.twicks.entities.Company;

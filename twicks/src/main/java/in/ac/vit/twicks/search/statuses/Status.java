@@ -1,12 +1,14 @@
 /**
- * This is a generic status class that stores id of the post, text and timestamp of 
- * the status updates. Additional sources need to extend this class and add specific 
+ * This is a generic status class that stores id of the post, text and timestamp of
+ * the status updates. Additional sources need to extend this class and add specific
  * properties related to that source.
- *  
+ * 
  */
 package in.ac.vit.twicks.search.statuses;
 
 import in.ac.vit.twicks.search.fetchers.Sources;
+
+import com.mongodb.BasicDBObject;
 
 /**
  * @author sahir
@@ -15,10 +17,14 @@ import in.ac.vit.twicks.search.fetchers.Sources;
 public abstract class Status {
 
 	private String id;
+	private Integer productId;
+	private Sources source;
 	private String text;
 	private String timestamp;
-	private Sources source;
-	private Integer productId;
+
+	public Status() {
+		this.declareSource();
+	}
 
 	public Status(String id, String text, String timestamp, Integer productId) {
 		super();
@@ -26,11 +32,10 @@ public abstract class Status {
 		this.text = text;
 		this.timestamp = timestamp;
 		this.productId = productId;
+		this.declareSource();
 	}
 
-	public Status() {
-
-	}
+	public abstract BasicDBObject getDBObject();
 
 	/**
 	 * Returns the id of the status provided by the source
@@ -38,37 +43,16 @@ public abstract class Status {
 	 * @return - id of the status
 	 */
 	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+		return this.id;
 	}
 
 	/**
-	 * Returns the text of the status update
+	 * Returns the product id to which this status belongs
 	 * 
-	 * @return - text of the status
+	 * @return - product Id
 	 */
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	/**
-	 * Returns the time when status was updated.
-	 * 
-	 * @return - timestamp of the status update
-	 */
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+	public Integer getProductId() {
+		return this.productId;
 	}
 
 	/**
@@ -77,11 +61,7 @@ public abstract class Status {
 	 * @return - Source
 	 */
 	public Sources getSource() {
-		return source;
-	}
-
-	public void setSource(Sources source) {
-		this.source = source;
+		return this.source;
 	}
 
 	/**
@@ -94,22 +74,48 @@ public abstract class Status {
 	}
 
 	/**
-	 * Returns the product id to which this status belongs
+	 * Returns the text of the status update
 	 * 
-	 * @return - product Id
+	 * @return - text of the status
 	 */
-	public Integer getProductId() {
-		return productId;
+	public String getText() {
+		return this.text;
+	}
+
+	/**
+	 * Returns the time when status was updated.
+	 * 
+	 * @return - timestamp of the status update
+	 */
+	public String getTimestamp() {
+		return this.timestamp;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
+	public void setSource(Sources source) {
+		this.source = source;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	@Override
+	public abstract String toString();
 	/**
 	 * Set the Source by implementing this method
 	 * 
 	 */
 	protected abstract void declareSource();
-	public abstract String toString();
 }

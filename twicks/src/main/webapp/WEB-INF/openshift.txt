@@ -1,0 +1,16 @@
+MongoDB 2.2 database added.  Please make note of these credentials:
+
+       Root User: admin
+   Root Password: cKtLS1L2iEsE
+   Database Name: twick
+
+Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+
+
+PostgreSQL 8.4 database added.  Please make note of these credentials:
+
+   Root User: admin
+   Root Password: Fi-gJCjYJiyp
+   Database Name: twick
+
+Connection URL: postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT/

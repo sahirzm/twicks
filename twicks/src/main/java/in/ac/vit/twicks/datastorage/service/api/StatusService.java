@@ -13,7 +13,7 @@ import in.ac.vit.twicks.search.statuses.Status;
  */
 public interface StatusService {
 
-	public Integer storeStatus(Status status);
+	public Status storeStatus(Status status);
 
 	/**
 	 * Add additional methods here

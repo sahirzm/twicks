@@ -24,6 +24,7 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
+import org.jfree.util.Log;
 
 /**
  * @author sahir
@@ -38,14 +39,17 @@ public class FetchingService {
 	private Instance<Fetcher> fetchers;
 
 	private Logger logger = Logger.getLogger(this.getClass());
-
 	@Inject
 	private ProductService productService;
+
+	protected ProductService getProductService() {
+		return this.productService;
+	}
 
 	@Schedule(hour = "*")
 	public void startFetchers() {
 		this.logger.info("Starting fetcher services...");
-		System.out.println("Here");
+
 		Map<Integer, String> products = new HashMap<>();
 		this.logger.info("Getting list of products...");
 		List<Product> activeProducts = this.getProductService().getAllToFetch();
@@ -64,8 +68,9 @@ public class FetchingService {
 				+ " to " + endTimeStamp);
 		while (it.hasNext()) {
 			Fetcher fetcher = it.next();
+			Log.info(fetcher.getClass() + "started...");
 			fetcher.initialize(startTimeStamp, endTimeStamp, products);
-			threads.execute(fetcher);
+			threads.execute((Runnable) fetcher);
 		}
 		try {
 			threads.shutdown();
@@ -77,13 +82,9 @@ public class FetchingService {
 			this.logger.info("Fetching Complete event fired...");
 		} catch (InterruptedException e) {
 			this.logger
-					.error("Fetching Service interrupted. "
+			.error("Fetching Service interrupted. "
 					+ e.getMessage());
 		}
-	}
-
-	protected ProductService getProductService() {
-		return this.productService;
 	}
 
 }

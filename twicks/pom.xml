@@ -233,6 +233,13 @@
 		</dependency>
 		<!-- end of mongodb -->
 
+		<!-- tile dependency for templating -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<!-- end of tiles -->
 	</dependencies>
 
 	<build>

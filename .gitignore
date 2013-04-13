@@ -1,1 +1,6 @@
-/twicks/target/*
+*~
+target
+.factoryPath
+.project
+.settings
+.classpath

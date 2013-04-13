@@ -12,6 +12,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import org.jboss.security.auth.spi.Util;
+
 /**
  * @author sahir
  * 
@@ -59,9 +61,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isAuthenticate(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public User authenticate(String username, String password) {
+		User user = this.getUserDao().getByUsername(username);
+		if (user != null) {
+			if (!user.getPassword()
+					.equals(Util.createPasswordHash("MD5", "hex", null, null,
+							password))) {
+				user = null;
+			}
+		}
+		return user;
 	}
 
 	@Override

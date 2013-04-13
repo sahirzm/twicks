@@ -23,4 +23,5 @@ public interface UserDao {
 	User changePassword(String oldPassword, String newPassword);
 		
 	List<User> getAll();
+	User getByUsername(String username);
 }

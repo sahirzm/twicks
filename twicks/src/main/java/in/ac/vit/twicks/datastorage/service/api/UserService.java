@@ -19,7 +19,7 @@ public interface UserService {
 	void delete(User user);
 	void deleteById(Integer id);
 	
-	boolean isAuthenticate(String username, String password);
+	User authenticate(String username, String password);
 	User changePassword(String oldPassword, String newPassword);
 		
 	List<User> getAll();

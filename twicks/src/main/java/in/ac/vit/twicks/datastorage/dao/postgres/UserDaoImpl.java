@@ -66,4 +66,12 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public User getByUsername(String username) {
+		return this.getEntityManager()
+				.createNamedQuery("user.findByUsername", User.class)
+				.setParameter("username", username).getSingleResult();
+	}
+
 }

@@ -15,6 +15,7 @@
 						value="${product.id }" disabled="disabled">
 				</div>
 			</c:if>
+		
 			<div class="span6">
 				<label for="name">
 					Name <span class="required">*</span>
@@ -22,18 +23,27 @@
 				<input type="text" id="name" name="name" class="span12"
 					value="${product.name }">
 			</div>
-		</div>
-		<div class="span4">
+		<div class="span6">
 				<label for="createdon">
-					<fmt:message key="PRODUCT_CREATED_ON_LBL" />
+					Created On <span class="required">*</span>
 				</label>
 				<input type="text" id="createdon" name="createdon" class="span12"
 					value="${product.createdon }">
 			</div>
+		</div>
+		<div class="row-fluid">
 			<div class="span6">
 				<label for="keyword">
-					<fmt:message key="PRODUCT_KEYWORD_LBL" />
+					Keyword <span class="required">*</span>
 				</label>
-				<textarea type="text" id="keyword" name="keyword" class="span12">${product.keyword }</textarea>
+				<textarea type="text" id="keywords" name="keywords" class="span12">${product.keywords }</textarea>
 			</div>
+		</div>
 	</fieldset>
+	<div class="row-fluid">
+		<button type="button" id="submit" class="btn btn-primary">${company.id gt 0 ? 'Update' : 'Save' }
+			</button>
+		<button type="button" id="cancel" class="btn"
+			onclick="loadForm('/company/list.do','#content')">Cancel</button>
+	</div>
+</form>

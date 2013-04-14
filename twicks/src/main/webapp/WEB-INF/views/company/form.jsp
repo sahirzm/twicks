@@ -22,6 +22,21 @@
 				<input type="text" id="name" name="name" class="span12"
 					value="${company.name }">
 			</div>
+		<div class="span6">
+				<label for="createdon">
+					Created On <span class="required">*</span>
+				</label>
+				<input type="text" id="createdon" name="createdon" class="span12"
+					value="${company.createdon }">
+			</div>
+		</div>
+			<div class="row-fluid">
+			<div class="span6">
+				<label for="address">
+					Address <span class="required">*</span>
+				</label>
+				<textarea type="text" id="address" name="address" class="span12">${company.address }</textarea>
+			</div>
 		</div>
 	</fieldset>
 	<div class="row-fluid">

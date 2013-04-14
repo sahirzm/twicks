@@ -54,3 +54,19 @@ foreign key(company_id) references company(id)
 );
 
 insert into twicks_user values (1,'Sahir','Zulfikar','Maredia','8898985498',null,'admin','sahirzm@gmail.com',now(),null,'sahir',md5('sahir123'),null);
+
+drop table status cascade;
+
+create table status (
+id serial primary key,
+statusId varchar(100),
+product_id int not null,
+text varchar(255) not null,
+timestamp timestamp not null,
+created_on timestamp not null,
+source varchar(20) not null,
+discriminator varchar(20),
+isolanguagecode varchar(10),
+likes integer,
+foreign key(product_id) references product(id),
+);

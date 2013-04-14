@@ -19,7 +19,7 @@ public class Result implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "RESULT_ID_GENERATOR", sequenceName = "RESULT_ID_SEQ")
+	@SequenceGenerator(name = "RESULT_ID_GENERATOR", sequenceName = "result_id_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESULT_ID_GENERATOR")
 	private Integer id;
 

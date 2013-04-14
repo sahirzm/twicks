@@ -24,7 +24,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "TWICKS_USER_ID_GENERATOR", sequenceName = "TWICKS_USER_ID_SEQ")
+	@SequenceGenerator(name = "TWICKS_USER_ID_GENERATOR", sequenceName = "twicks_user_id_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TWICKS_USER_ID_GENERATOR")
 	private Integer id;
 

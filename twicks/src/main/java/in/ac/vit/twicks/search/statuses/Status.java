@@ -6,6 +6,7 @@
  */
 package in.ac.vit.twicks.search.statuses;
 
+import in.ac.vit.twicks.entities.Product;
 import in.ac.vit.twicks.search.fetchers.Sources;
 
 import java.util.Date;
@@ -20,7 +21,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.mongodb.BasicDBObject;
 
@@ -34,27 +40,37 @@ import com.mongodb.BasicDBObject;
 public abstract class Status {
 
 	@Id
-	@SequenceGenerator(name = "STATUS_ID_GENERATOR", sequenceName = "STATUS_ID_SEQ")
+	@SequenceGenerator(name = "STATUS_ID_GENERATOR", sequenceName = "status_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STATUS_ID_GENERATOR")
 	private Integer id;
+	@NotNull
+	@Size(min = 3)
 	private String statusId;
-	private Integer productId;
+	@ManyToOne
+	@NotNull
+	private Product product;
+	@NotNull
+	@Size(min = 1)
 	private String text;
-	private String timestamp;
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	private Date timestamp;
+	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date createdOn;
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private Sources source;
 
 	public Status() {
 		this.declareSource();
 	}
 
-	public Status(String statusId, String text, String timestamp,
-			Integer productId) {
+	public Status(String statusId, String text, Date timestamp, Product product) {
 		super();
 		this.text = text;
 		this.timestamp = timestamp;
-		this.productId = productId;
+		this.product = product;
 		this.statusId = statusId;
 		this.declareSource();
 	}
@@ -75,8 +91,8 @@ public abstract class Status {
 	 * 
 	 * @return - product Id
 	 */
-	public Integer getProductId() {
-		return this.productId;
+	public Product getProduct() {
+		return this.product;
 	}
 
 	/**
@@ -119,7 +135,7 @@ public abstract class Status {
 	 * 
 	 * @return - timestamp of the status update
 	 */
-	public String getTimestamp() {
+	public Date getTimestamp() {
 		return this.timestamp;
 	}
 
@@ -135,8 +151,8 @@ public abstract class Status {
 		this.statusId = statusId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public void setSource(Sources source) {
@@ -147,7 +163,7 @@ public abstract class Status {
 		this.text = text;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 

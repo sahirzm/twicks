@@ -5,12 +5,10 @@
 package in.ac.vit.twicks.search.fetchers;
 
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
+import in.ac.vit.twicks.entities.Product;
 import in.ac.vit.twicks.search.statuses.Status;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -20,7 +18,7 @@ import javax.inject.Inject;
  */
 public abstract class FetcherImpl implements Fetcher {
 	private String endTimeStamp;
-	private Map<Integer, String> products;
+	private List<Product> products;
 	private String startTimestamp;
 	
 	@Inject
@@ -41,7 +39,7 @@ public abstract class FetcherImpl implements Fetcher {
 	 * @return List of status
 	 */
 	@Override
-	public abstract List<Status> fetch(int productId, String keywords);
+	public abstract List<Status> fetch(Product product);
 
 	protected String getEndTimeStamp() {
 		return this.endTimeStamp;
@@ -55,8 +53,9 @@ public abstract class FetcherImpl implements Fetcher {
 		return this.statusService;
 	}
 
+	@Override
 	public void initialize(String startTimeStamp, String endTimeStamp,
-			Map<Integer, String> products) {
+			List<Product> products) {
 		this.startTimestamp = startTimeStamp;
 		this.endTimeStamp = endTimeStamp;
 		this.products = products;
@@ -64,11 +63,9 @@ public abstract class FetcherImpl implements Fetcher {
 
 	@Override
 	public void run() {
-		Set<Integer> keys = this.products.keySet();
-		Iterator<Integer> it = keys.iterator();
-		while (it.hasNext()) {
-			Integer key = it.next();
-			List<Status> statuses = this.fetch(key, this.products.get(key));
+		
+		for(Product p : this.products){
+			List<Status> statuses = this.fetch(p);
 			for (Status status : statuses) {
 				this.getStatusService().storeStatus(status);
 			}

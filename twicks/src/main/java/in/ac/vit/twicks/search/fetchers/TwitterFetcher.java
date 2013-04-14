@@ -3,6 +3,7 @@
  */
 package in.ac.vit.twicks.search.fetchers;
 
+import in.ac.vit.twicks.entities.Product;
 import in.ac.vit.twicks.search.statuses.Status;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class TwitterFetcher extends FetcherImpl implements Fetcher {
 
 	private Logger log = Logger.getLogger(this.getClass());
 	@Override
-	public List<Status> fetch(int productId, String keywords) {
+	public List<Status> fetch(Product product) {
 		log.info("Twitter Fetcher Started");
 		Twitter twitter = new TwitterFactory().getInstance();
 		long sinceId = 123456;

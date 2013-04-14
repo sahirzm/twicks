@@ -9,10 +9,8 @@ import in.ac.vit.twicks.datastorage.service.api.ProductService;
 import in.ac.vit.twicks.entities.Product;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -46,12 +44,10 @@ public class FetchingService {
 	@Schedule(hour = "*")
 	public void startFetchers() {
 		this.log.info("Starting fetcher services...");
-		Map<Integer, String> products = new HashMap<>();
+		
 		this.log.info("Getting list of products...");
 		List<Product> activeProducts = this.getProductService().getAllToFetch();
-		for (Product product : activeProducts) {
-			products.put(product.getId(), product.getKeywords());
-		}
+		
 		Calendar calendar = Calendar.getInstance();
 
 		String endTimeStamp = calendar.getTimeInMillis() + "";
@@ -64,7 +60,7 @@ public class FetchingService {
 				+ " to " + endTimeStamp);
 		while (it.hasNext()) {
 			Fetcher fetcher = it.next();
-			fetcher.initialize(startTimeStamp, endTimeStamp, products);
+			fetcher.initialize(startTimeStamp, endTimeStamp, activeProducts);
 			threads.execute((Runnable) fetcher);
 		}
 		try {

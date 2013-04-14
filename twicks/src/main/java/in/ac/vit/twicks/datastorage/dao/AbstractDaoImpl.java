@@ -49,7 +49,7 @@ public abstract class AbstractDaoImpl<X> implements AbstractDao<X> {
 	}
 
 	@Override
-	public int getCount() {
+	public Long getCount() {
 		final StringBuffer queryString = new StringBuffer(
 				"SELECT count(o) from ");
 		queryString.append(type.getSimpleName()).append(" o ");
@@ -57,7 +57,7 @@ public abstract class AbstractDaoImpl<X> implements AbstractDao<X> {
 		final Query query = this.getEntityManager().createQuery(
 				queryString.toString(), Long.class);
 
-		return (int) query.getSingleResult();
+		return (Long)query.getSingleResult();
 
 	}
 

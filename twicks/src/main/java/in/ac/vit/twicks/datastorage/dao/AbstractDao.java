@@ -21,7 +21,7 @@ public interface AbstractDao<X> {
 
 	public X update(X x);
 
-	public int getCount();
+	public Long getCount();
 
 	public List<X> get(int first, int pageSize, String sortField,
 			String sortOrder, Map<String, String> filters);

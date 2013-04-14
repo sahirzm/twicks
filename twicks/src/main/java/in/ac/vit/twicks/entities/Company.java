@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the company database table.
@@ -25,17 +27,19 @@ public class Company implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "COMPANY_ID_GENERATOR", sequenceName = "COMPANY_ID_SEQ")
+	@SequenceGenerator(name = "COMPANY_ID_GENERATOR", sequenceName = "company_id_seq", allocationSize=1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANY_ID_GENERATOR")
 	private Integer id;
 
 	private String address;
-
+	@NotNull
 	private Date createdon;
-
+	@NotNull
+	@Size(min = 2)
 	private String name;
 
 	@Temporal(TemporalType.DATE)
+	@NotNull
 	private Date subscriptionDate;
 
 	// bi-directional many-to-one association to Product

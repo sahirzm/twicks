@@ -52,6 +52,12 @@
 
 	<script type="text/javascript"
 		src="${baseUrl}/resources/js/andromedics.js"></script>
+	<script type="text/javascript"
+		src="${baseUrl}/resources/datatable/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="${baseUrl}/resources/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript"
+		src="${baseUrl}/resources/datatable/extras/paging.js"></script>
 	<tiles:insertAttribute name="script" ignore="true" />
 
 </body>

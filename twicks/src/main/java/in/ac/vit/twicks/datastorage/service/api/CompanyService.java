@@ -11,14 +11,8 @@ import java.util.List;
  * @author sahir
  *
  */
-public interface CompanyService {
-	Company create(Company company);
-	void delete(Company company);
-	void deleteById(Integer companyId);
+public interface CompanyService extends AbstractService<Company> {
+	
 	List<Company> getActiveCompanies();
-	List<Company> getAll();
 
-	Company getById(Integer id);
-
-	Company update(Company company);
 }

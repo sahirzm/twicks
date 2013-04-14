@@ -6,7 +6,6 @@ package in.ac.vit.twicks.datastorage.service.impl;
 
 import in.ac.vit.twicks.datastorage.dao.StatusDao;
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
-import in.ac.vit.twicks.entities.Production;
 import in.ac.vit.twicks.search.statuses.Status;
 
 import javax.ejb.Stateless;
@@ -17,7 +16,6 @@ import javax.inject.Inject;
  *
  */
 @Stateless
-@Production
 public class StatusServiceImpl implements StatusService {
 
 	@Inject
@@ -25,7 +23,7 @@ public class StatusServiceImpl implements StatusService {
 
 	@Override
 	public Status storeStatus(Status status) {
-		return this.getStatusDao().storeStatus(status);
+		return this.getStatusDao().save(status);
 	}
 
 	protected StatusDao getStatusDao() {

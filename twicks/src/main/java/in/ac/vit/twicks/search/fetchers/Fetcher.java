@@ -12,7 +12,7 @@ import java.util.Map;
  * @author sahir
  *
  */
-public interface Fetcher {
+public interface Fetcher extends Runnable {
 	public List<Status> fetch(int productId, String keywords);
 
 	public void initialize(String startTimeStamp, String endTimeStamp,

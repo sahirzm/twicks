@@ -9,16 +9,10 @@ import in.ac.vit.twicks.entities.Product;
 
 /**
  * @author sahir
- *
+ * 
  */
-public interface ProductDao {
+public interface ProductDao extends AbstractDao<Product> {
 
-	Product create(Product product);
-	Product update(Product product);
-	Product getById(Integer id);
-	void delete(Product product);
-	void deleteById(Integer productId);
-	
 	List<Product> getAllByCompanyId(Integer companyId);
-		
+
 }

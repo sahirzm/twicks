@@ -8,30 +8,54 @@ package in.ac.vit.twicks.search.statuses;
 
 import in.ac.vit.twicks.search.fetchers.Sources;
 
+import java.util.Date;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
+
 import com.mongodb.BasicDBObject;
 
 /**
  * @author sahir
  * 
  */
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.STRING)
 public abstract class Status {
 
-	private String id;
+	@Id
+	@SequenceGenerator(name = "STATUS_ID_GENERATOR", sequenceName = "STATUS_ID_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "STATUS_ID_GENERATOR")
+	private Integer id;
+	private String statusId;
 	private Integer productId;
-	private Sources source;
 	private String text;
 	private String timestamp;
+	private Date createdOn;
+	@Enumerated(EnumType.STRING)
+	private Sources source;
 
 	public Status() {
 		this.declareSource();
 	}
 
-	public Status(String id, String text, String timestamp, Integer productId) {
+	public Status(String statusId, String text, String timestamp,
+			Integer productId) {
 		super();
-		this.id = id;
 		this.text = text;
 		this.timestamp = timestamp;
 		this.productId = productId;
+		this.statusId = statusId;
 		this.declareSource();
 	}
 
@@ -42,7 +66,7 @@ public abstract class Status {
 	 * 
 	 * @return - id of the status
 	 */
-	public String getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -73,6 +97,14 @@ public abstract class Status {
 		return this.getSource().ordinal();
 	}
 
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
 	/**
 	 * Returns the text of the status update
 	 * 
@@ -91,8 +123,16 @@ public abstract class Status {
 		return this.timestamp;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(String statusId) {
+		this.statusId = statusId;
 	}
 
 	public void setProductId(Integer productId) {
@@ -113,6 +153,7 @@ public abstract class Status {
 
 	@Override
 	public abstract String toString();
+
 	/**
 	 * Set the Source by implementing this method
 	 * 

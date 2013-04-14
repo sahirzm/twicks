@@ -10,17 +10,10 @@ import java.util.List;
 
 /**
  * @author sahir
- *
+ * 
  */
-public interface CompanyDao {
-	Company create(Company company);
-	void delete(Company company);
-	void deleteById(Integer companyId);
-	List<Company> getAll();
+public interface CompanyDao extends AbstractDao<Company> {
 
-	Company getById(Integer id);
+	public List<Company> getBySubscriptionDate(Date date);
 
-	List<Company> getBySubscriptionDate(Date date);
-
-	Company update(Company company);
 }

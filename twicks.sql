@@ -31,7 +31,7 @@ address text,
 role varchar(255) not null,
 email varchar(255) not null unique,
 createdOn timestamp not null,
-lastLoggedIn timestamp not null,
+lastLoggedIn timestamp null,
 username varchar(255) not null unique,
 password varchar(255) not null,
 company_id int,
@@ -53,4 +53,4 @@ foreign key(product_id) references product(id),
 foreign key(company_id) references company(id)
 );
 
-insert into twicks_user values (1,'Sahir','Zulfikar','Maredia','8898985498',null,'admin','sahirzm@gmail.com',now(),now(),'sahir',md5('sahir123'),null);
+insert into twicks_user values (1,'Sahir','Zulfikar','Maredia','8898985498',null,'admin','sahirzm@gmail.com',now(),null,'sahir',md5('sahir123'),null);

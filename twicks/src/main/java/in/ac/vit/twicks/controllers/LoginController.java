@@ -1,9 +1,9 @@
 package in.ac.vit.twicks.controllers;
 
-
 import in.ac.vit.twicks.datastorage.service.api.UserService;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -43,6 +43,8 @@ public class LoginController extends HttpServlet {
 				currentUser.setUser(this.getUserService().authenticate(
 						username, password));
 				session.setAttribute("currentUser", currentUser.getUser());
+				currentUser.getUser().setLastloggedin(new Date());
+				this.userService.update(currentUser.getUser());
 				response.sendRedirect("homepage.do");
 				return;
 			} catch (Exception e) {

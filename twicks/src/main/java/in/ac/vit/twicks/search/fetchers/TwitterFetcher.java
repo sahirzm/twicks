@@ -7,6 +7,8 @@ import in.ac.vit.twicks.search.statuses.Status;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+
 import org.apache.log4j.Logger;
 
 import twitter4j.Query;
@@ -19,11 +21,13 @@ import twitter4j.TwitterFactory;
  * @author sahir
  * 
  */
-public class TwitterFetcher extends FetcherImpl {
+@Stateless
+public class TwitterFetcher extends FetcherImpl implements Fetcher {
 
 	private Logger log = Logger.getLogger(this.getClass());
 	@Override
 	public List<Status> fetch(int productId, String keywords) {
+		log.info("Twitter Fetcher Started");
 		Twitter twitter = new TwitterFactory().getInstance();
 		long sinceId = 123456;
 		try {

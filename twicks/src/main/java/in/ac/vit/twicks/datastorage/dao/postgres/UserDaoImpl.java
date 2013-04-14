@@ -1,16 +1,18 @@
 package in.ac.vit.twicks.datastorage.dao.postgres;
 
+import in.ac.vit.twicks.datastorage.dao.AbstractDaoImpl;
 import in.ac.vit.twicks.datastorage.dao.UserDao;
 import in.ac.vit.twicks.entities.User;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 @Stateless
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
 	@Inject
 	private EntityManager entityManager;
@@ -22,49 +24,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User create(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(User user) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<User> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	protected EntityManager getEntityManager() {
 		return this.entityManager;
-	}
-
-	@Override
-	public boolean isAuthenticate(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public User update(User user) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -72,6 +33,19 @@ public class UserDaoImpl implements UserDao {
 		return this.getEntityManager()
 				.createNamedQuery("user.findByUsername", User.class)
 				.setParameter("username", username).getSingleResult();
+	}
+
+	@Override
+	public List<User> get(int first, int pageSize, String sortField,
+			String sortOrder, Map<String, String> filters) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getCount(Map<String, String> filters) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

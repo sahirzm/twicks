@@ -132,16 +132,19 @@ public class Company implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (prime * result) + ((this.address == null) ? 0 : this.address.hashCode());
+		result = (prime * result)
+				+ ((this.address == null) ? 0 : this.address.hashCode());
 		result = (prime * result)
 				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
-		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
-		result = (prime * result) + ((this.name == null) ? 0 : this.name.hashCode());
+		result = (prime * result)
+				+ ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result)
+				+ ((this.name == null) ? 0 : this.name.hashCode());
 		result = (prime * result)
 				+ ((this.products == null) ? 0 : this.products.hashCode());
-		result = (prime * result) + ((this.results == null) ? 0 : this.results.hashCode());
-		result = (prime
-				* result)
+		result = (prime * result)
+				+ ((this.results == null) ? 0 : this.results.hashCode());
+		result = (prime * result)
 				+ ((this.subscriptionDate == null) ? 0 : this.subscriptionDate
 						.hashCode());
 		result = (prime * result)
@@ -203,11 +206,11 @@ public class Company implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Company [id=" + this.id + ", address=" + this.address + ", createdon="
-				+ this.createdon + ", name=" + this.name + ", subscriptiondate="
-				+ this.subscriptionDate + ", products="
-				+ this.products + ", results="
-				+ this.results + ", twicksUsers=" + this.twicksUsers + "]";
+		return "Company [id=" + this.id + ", address=" + this.address
+				+ ", createdon=" + this.createdon + ", name=" + this.name
+				+ ", subscriptiondate=" + this.subscriptionDate + ", products="
+				+ this.products + ", results=" + this.results
+				+ ", twicksUsers=" + this.twicksUsers + "]";
 	}
 
 }

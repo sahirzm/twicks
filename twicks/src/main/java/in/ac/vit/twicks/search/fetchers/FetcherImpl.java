@@ -5,7 +5,6 @@
 package in.ac.vit.twicks.search.fetchers;
 
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
-import in.ac.vit.twicks.entities.Production;
 import in.ac.vit.twicks.search.statuses.Status;
 
 import java.util.Iterator;
@@ -19,13 +18,12 @@ import javax.inject.Inject;
  * @author sahir
  * 
  */
-public abstract class FetcherImpl implements Runnable, Fetcher {
+public abstract class FetcherImpl implements Fetcher {
 	private String endTimeStamp;
 	private Map<Integer, String> products;
 	private String startTimestamp;
-
+	
 	@Inject
-	@Production
 	private StatusService statusService;
 
 	public FetcherImpl() {

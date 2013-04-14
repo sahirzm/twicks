@@ -19,12 +19,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 /**
  * @author sahir
@@ -35,10 +33,9 @@ import org.jfree.util.Log;
 public class FetchingService {
 
 	@Inject
-	@Any
 	private Instance<Fetcher> fetchers;
 
-	private Logger logger = Logger.getLogger(this.getClass());
+	private Logger log = Logger.getLogger(this.getClass());
 	@Inject
 	private ProductService productService;
 
@@ -48,10 +45,9 @@ public class FetchingService {
 
 	@Schedule(hour = "*")
 	public void startFetchers() {
-		this.logger.info("Starting fetcher services...");
-
+		this.log.info("Starting fetcher services...");
 		Map<Integer, String> products = new HashMap<>();
-		this.logger.info("Getting list of products...");
+		this.log.info("Getting list of products...");
 		List<Product> activeProducts = this.getProductService().getAllToFetch();
 		for (Product product : activeProducts) {
 			products.put(product.getId(), product.getKeywords());
@@ -64,11 +60,10 @@ public class FetchingService {
 
 		Iterator<Fetcher> it = this.fetchers.iterator();
 		ExecutorService threads = Executors.newFixedThreadPool(5);
-		this.logger.info("Starting to fetch data from " + startTimeStamp
+		this.log.info("Starting to fetch data from " + startTimeStamp
 				+ " to " + endTimeStamp);
 		while (it.hasNext()) {
 			Fetcher fetcher = it.next();
-			Log.info(fetcher.getClass() + "started...");
 			fetcher.initialize(startTimeStamp, endTimeStamp, products);
 			threads.execute((Runnable) fetcher);
 		}
@@ -79,9 +74,9 @@ public class FetchingService {
 
 			}
 			// TODO Fire Event here saying data fetching complete
-			this.logger.info("Fetching Complete event fired...");
+			this.log.info("Fetching Complete event fired...");
 		} catch (InterruptedException e) {
-			this.logger
+			this.log
 			.error("Fetching Service interrupted. "
 					+ e.getMessage());
 		}

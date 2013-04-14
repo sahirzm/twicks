@@ -3,11 +3,13 @@
  */
 package in.ac.vit.twicks.datastorage.dao.postgres;
 
+import in.ac.vit.twicks.datastorage.dao.AbstractDaoImpl;
 import in.ac.vit.twicks.datastorage.dao.ResultDao;
 import in.ac.vit.twicks.entities.Result;
 import in.ac.vit.twicks.search.fetchers.Sources;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,34 +22,10 @@ import javax.persistence.EntityManager;
  *
  */
 @Stateless
-public class ResultDaoImpl implements ResultDao {
+public class ResultDaoImpl extends AbstractDaoImpl<Result> implements ResultDao {
 
 	@Inject
 	private EntityManager entityManager;
-
-	@Override
-	public Result create(Result result) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void delete(Result result) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Result getById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Result> getByProductId(Integer productId) {
@@ -63,12 +41,20 @@ public class ResultDaoImpl implements ResultDao {
 	}
 
 	@Override
-	public Result update(Result result) {
+	protected EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	@Override
+	public List<Result> get(int first, int pageSize, String sortField,
+			String sortOrder, Map<String, String> filters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	protected EntityManager getEntityManager() {
-		return this.entityManager;
+	@Override
+	public int getCount(Map<String, String> filters) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

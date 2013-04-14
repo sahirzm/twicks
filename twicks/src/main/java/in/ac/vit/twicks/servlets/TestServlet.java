@@ -2,7 +2,6 @@ package in.ac.vit.twicks.servlets;
 
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
 import in.ac.vit.twicks.search.fetchers.FetchingService;
-import in.ac.vit.twicks.search.statuses.TwitterStatus;
 
 import java.io.IOException;
 
@@ -12,13 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tiles.TilesContainer;
-import org.apache.tiles.access.TilesAccess;
-import org.apache.tiles.request.ApplicationContext;
-import org.apache.tiles.request.Request;
-import org.apache.tiles.request.servlet.ServletApplicationContext;
-import org.apache.tiles.request.servlet.ServletRequest;
 
 /**
  * Servlet implementation class TestServlet
@@ -47,17 +39,7 @@ public class TestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// this.fetchingService.startFetchers();
-		TwitterStatus status = new TwitterStatus("1234",
-				"This is my first Twitter status", System.currentTimeMillis()
-				+ "", 1, "en-US");
-		this.statusService.storeStatus(status);
-		ApplicationContext context = new ServletApplicationContext(
-				request.getServletContext());
-		TilesContainer container = TilesAccess.getContainer(context);
-		Request tilesRequest = new ServletRequest(
-				container.getApplicationContext(), request, response);
-		container.render("twicks.homepage", tilesRequest);
+		this.fetchingService.startFetchers();
 	}
 
 	/**

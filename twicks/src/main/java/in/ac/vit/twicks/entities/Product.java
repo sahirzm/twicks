@@ -104,14 +104,18 @@ public class Product implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = (prime * result) + ((this.company == null) ? 0 : this.company.hashCode());
+		result = (prime * result)
+				+ ((this.company == null) ? 0 : this.company.hashCode());
 		result = (prime * result)
 				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
-		result = (prime * result) + ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result)
+				+ ((this.id == null) ? 0 : this.id.hashCode());
 		result = (prime * result)
 				+ ((this.keywords == null) ? 0 : this.keywords.hashCode());
-		result = (prime * result) + ((this.name == null) ? 0 : this.name.hashCode());
-		result = (prime * result) + ((this.results == null) ? 0 : this.results.hashCode());
+		result = (prime * result)
+				+ ((this.name == null) ? 0 : this.name.hashCode());
+		result = (prime * result)
+				+ ((this.results == null) ? 0 : this.results.hashCode());
 		return result;
 	}
 
@@ -148,9 +152,10 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + this.id + ", createdon=" + this.createdon + ", keywords="
-				+ this.keywords + ", name=" + this.name + ", company=" + this.company
-				+ ", results=" + this.results + "]";
+		return "Product [id=" + this.id + ", createdon=" + this.createdon
+				+ ", keywords=" + this.keywords + ", name=" + this.name
+				+ ", company=" + this.company + ", results=" + this.results
+				+ "]";
 	}
 
 }

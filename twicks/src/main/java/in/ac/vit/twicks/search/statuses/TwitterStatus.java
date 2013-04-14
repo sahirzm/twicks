@@ -4,6 +4,9 @@
  */
 package in.ac.vit.twicks.search.statuses;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 import in.ac.vit.twicks.search.fetchers.Sources;
 
 import com.mongodb.BasicDBObject;
@@ -12,6 +15,8 @@ import com.mongodb.BasicDBObject;
  * 
  * @author
  */
+@Entity
+@DiscriminatorValue("twitter")
 public class TwitterStatus extends Status {
 
 	private String isolanguagecode;
@@ -20,7 +25,8 @@ public class TwitterStatus extends Status {
 	}
 
 	public TwitterStatus(BasicDBObject obj) {
-		this.setId(obj.getString("id"));
+		this.setId(obj.getInt("id"));
+		this.setStatusId(obj.getString("statusId"));
 		this.setIsoLanguageCode(obj.getString("isoLanguageCode"));
 		this.setProductId(obj.getInt("productId"));
 		this.setSource(Sources.valueOf(obj.getString("source")));
@@ -28,9 +34,9 @@ public class TwitterStatus extends Status {
 		this.setTimestamp(obj.getString("timestamp"));
 	}
 
-	public TwitterStatus(String id, String text, String timestamp,
+	public TwitterStatus(String statusId, String text, String timestamp,
 			Integer productId, String isoLanguageCode) {
-		super(id, text, timestamp, productId);
+		super(statusId, text, timestamp, productId);
 		this.isolanguagecode = isoLanguageCode;
 	}
 

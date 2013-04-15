@@ -69,4 +69,16 @@ public class ValidationException extends ConstraintViolationException {
 		return "{\"error\":\"Some Error while validatin\"}";
 	}
 
+	public void addError(String key, String value) {
+		this.errors.put(key, value);
+	}
+
+	public boolean isEmpty() {
+		if (errors.size() != 0 || !this.getConstraintViolations().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }

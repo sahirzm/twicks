@@ -28,7 +28,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 /**
  * @author sahir
@@ -40,7 +39,6 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product> implements
 
 	@Inject
 	private EntityManager entityManager;
-	private transient Logger log = Logger.getLogger(getClass());
 
 	@SuppressWarnings("unchecked")
 	@Override

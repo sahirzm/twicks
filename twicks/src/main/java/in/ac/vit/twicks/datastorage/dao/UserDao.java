@@ -11,7 +11,5 @@ import in.ac.vit.twicks.entities.User;
  */
 public interface UserDao extends AbstractDao<User> {
 
-	User changePassword(String oldPassword, String newPassword);
-		
 	User getByUsername(String username);
 }

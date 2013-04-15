@@ -12,6 +12,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 /**
  * The persistent class for the twicks_user database table.
@@ -24,30 +29,42 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "TWICKS_USER_ID_GENERATOR", sequenceName = "twicks_user_id_seq", allocationSize=1)
+	@SequenceGenerator(name = "TWICKS_USER_ID_GENERATOR", sequenceName = "twicks_user_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TWICKS_USER_ID_GENERATOR")
 	private Integer id;
 
 	private String address;
-
+	@NotNull
 	private Date createdon;
-
+	@NotNull
+	@Email
+	@Size(min = 2)
 	private String email;
-
+	@NotNull
+	@Size(min = 2)
 	private String firstname;
 
 	private Date lastloggedin;
 
+	@NotNull
+	@Size(min = 2)
 	private String lastname;
 
 	private String middlename;
 
+	@NotNull
+	@Pattern(regexp="^[0-9]{4}(-[0-9]{3}){2}$", message="invalid format XXXX-XXX-XXX")
 	private String mobileno;
 
+	@NotNull
+	@Size(min=6)
 	private String password;
 
+	@NotNull
 	private String role;
 
+	@NotNull
+	@Size(min=3)
 	private String username;
 
 	// bi-directional many-to-one association to Company

@@ -41,11 +41,15 @@ public abstract class AbstractDaoImpl<X> implements AbstractDao<X> {
 	}
 
 	public X getById(Integer id) {
+		if (id <= 0) {
+			return null;
+		}
 		return this.getEntityManager().find(type, id);
 	}
 
 	public void deleteById(Integer id) {
-		this.delete(this.getById(id));
+		if (id > 0)
+			this.delete(this.getById(id));
 	}
 
 	@Override
@@ -57,7 +61,7 @@ public abstract class AbstractDaoImpl<X> implements AbstractDao<X> {
 		final Query query = this.getEntityManager().createQuery(
 				queryString.toString(), Long.class);
 
-		return (Long)query.getSingleResult();
+		return (Long) query.getSingleResult();
 
 	}
 

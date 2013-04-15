@@ -6,18 +6,19 @@
 
 <form id="companyForm">
 	<fieldset>
-		<legend> Company Details </legend>
+		<legend>Company Details</legend>
 		<div class="row-fluid">
 			<c:if test="${company.id gt 0}">
 				<div class="span6">
-					<label for="id"> Id </label>
-					<input type="text" id="id" name="id" class="span12"
-						value="${company.id }" disabled="disabled">
+					<label for="id">Id<span class="required">*</span></label>
+					${company.id }
+					<input type="hidden" id="id" name="id"
+						value="${company.id }" />
 				</div>
 			</c:if>
 			<div class="span6">
 				<label for="name">
-					Name <span class="required">*</span>
+					Name<span class="required">*</span>
 				</label>
 				<input type="text" id="name" name="name" class="span12"
 					value="${company.name }">
@@ -26,7 +27,7 @@
 		<div class="row-fluid">
 			<div class="span6">
 				<label for="address">
-					Address <span class="required">*</span>
+					Address<span class="required">*</span>
 				</label>
 				<textarea type="text" id="address" name="address" class="span12">${company.address }</textarea>
 			</div>
@@ -34,7 +35,7 @@
 		<div class="row-fluid">
 			<div class="span6">
 				<label for="subscriptionDate">
-					Subscription Date <span class="required">*</span>
+					Subscription Date<span class="required">*</span>
 				</label>
 				<input type="text" id="subscriptionDate" name="subscriptionDate"
 					class="span12" value="${company.subscriptionDate }">
@@ -42,10 +43,9 @@
 			<c:if test="${company.id gt 0}">
 				<div class="span6">
 					<label for="createdon">
-						Created On <span class="required">*</span>
+						Created On<span class="required">*</span>
 					</label>
-					<input type="text" id="createdon" name="createdon" class="span12"
-						value="${company.createdon }">
+					<fmt:formatDate value="${company.createdon }"/>
 				</div>
 			</c:if>
 		</div>

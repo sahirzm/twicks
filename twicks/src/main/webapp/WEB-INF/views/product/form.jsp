@@ -11,8 +11,8 @@
 			<c:if test="${product.id gt 0}">
 				<div class="span6">
 					<label for="id"> Id </label>
-					<input type="text" id="id" name="id" class="span12"
-						value="${product.id }" disabled="disabled">
+					${product.id }
+					<input type="hidden" id="id" name="id" value="${product.id }">
 				</div>
 			</c:if>
 
@@ -26,14 +26,14 @@
 		</div>
 		<div class="row-fluid">
 			<div class="span6">
-				<label for="companyId">
+				<label for="company">
 					Company<span class="required">*</span>
 				</label>
-				<select id="companyId" name="companyId" class="span12">
+				<select id="company" name="company" class="span12">
 					<option value="">Select product</option>
 					<c:forEach items="${companies}" var="company">
 						<option value="${company.id}"
-							<c:if test="${product.company.id eq company.id}">selected="selected"></c:if>>
+							<c:if test="${product.company.id eq company.id}">selected="selected"</c:if> >
 							<c:out value="${company.name }" />
 						</option>
 					</c:forEach>
@@ -44,8 +44,7 @@
 					<label for="createdon">
 						Created On <span class="required">*</span>
 					</label>
-					<input type="text" id="createdon" name="createdon" class="span12"
-						value="${product.createdon }">
+					<fmt:formatDate value="${product.createdon }" />
 				</div>
 			</c:if>
 		</div>
@@ -58,7 +57,7 @@
 			</div>
 		</div>
 	</fieldset>
-		<div class="row-fluid">
+	<div class="row-fluid">
 		<button type="button" id="submit" class="btn btn-primary"
 			href="javascript:;">${product.id gt 0 ? 'Update' : 'Save' }
 		</button>

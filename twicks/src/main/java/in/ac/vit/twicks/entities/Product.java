@@ -13,6 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the product database table.
@@ -25,18 +27,21 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "PRODUCT_ID_GENERATOR", sequenceName = "product_id_seq", allocationSize=1)
+	@SequenceGenerator(name = "PRODUCT_ID_GENERATOR", sequenceName = "product_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_ID_GENERATOR")
 	private Integer id;
-
+	@NotNull
 	private Date createdon;
-
+	@NotNull
+	@Size(min = 2)
 	private String keywords;
-
+	@NotNull
+	@Size(min = 2)
 	private String name;
 
 	// bi-directional many-to-one association to Company
 	@ManyToOne
+	@NotNull
 	private Company company;
 
 	// bi-directional many-to-one association to Result

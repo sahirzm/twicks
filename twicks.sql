@@ -16,7 +16,7 @@ name varchar(255) not null,
 keywords text not null,
 createdOn timestamp not null,
 company_id int not null,
-foreign key(company_id) references company(id)
+foreign key(company_id) references company(id) on update cascade on delete cascade
 );
 
 drop table twicks_user cascade;
@@ -35,7 +35,7 @@ lastLoggedIn timestamp null,
 username varchar(255) not null unique,
 password varchar(255) not null,
 company_id int,
-foreign key(company_id) references company(id)
+foreign key(company_id) references company(id) on update cascade on delete cascade
 );
 
 drop table result cascade;
@@ -49,8 +49,8 @@ feedCount int not null,
 createdOn timestamp not null,
 product_id int not null,
 company_id int not null,
-foreign key(product_id) references product(id),
-foreign key(company_id) references company(id)
+foreign key(product_id) references product(id) on update cascade on delete cascade,
+foreign key(company_id) references company(id) on update cascade on delete cascade
 );
 
 insert into twicks_user values (1,'Sahir','Zulfikar','Maredia','8898985498',null,'admin','sahirzm@gmail.com',now(),null,'sahir',md5('sahir123'),null);
@@ -68,5 +68,5 @@ source varchar(20) not null,
 discriminator varchar(20),
 isolanguagecode varchar(10),
 likes integer,
-foreign key(product_id) references product(id),
+foreign key(product_id) references product(id) on update cascade on delete cascade
 );

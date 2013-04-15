@@ -32,8 +32,16 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Admin Area</web-resource-name>
-      <url-pattern>/stores/create.do</url-pattern>
-      <url-pattern>/stores/view.do</url-pattern>
+      <url-pattern>/company/create.do</url-pattern>
+      <url-pattern>/company/view.do</url-pattern>
+      <url-pattern>/company/edit.do</url-pattern>
+      <url-pattern>/company/delete.do</url-pattern>
+      <url-pattern>/company/list.do</url-pattern>
+      <url-pattern>/product/create.do</url-pattern>
+      <url-pattern>/product/view.do</url-pattern>
+      <url-pattern>/product/edit.do</url-pattern>
+      <url-pattern>/product/delete.do</url-pattern>
+      <url-pattern>/product/list.do</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>
@@ -44,7 +52,11 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Customer Area</web-resource-name>
-      <url-pattern>/stores/view.do</url-pattern>
+      <url-pattern>/product/create.do</url-pattern>
+      <url-pattern>/product/view.do</url-pattern>
+      <url-pattern>/product/edit.do</url-pattern>
+      <url-pattern>/product/delete.do</url-pattern>
+      <url-pattern>/product/list.do</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>

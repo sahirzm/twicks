@@ -28,6 +28,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * @author sahir
@@ -39,6 +40,7 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product> implements
 
 	@Inject
 	private EntityManager entityManager;
+	private transient Logger log = Logger.getLogger(getClass());
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -112,6 +114,7 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product> implements
 		ArrayList<Predicate> predicates = new ArrayList<>();
 		for (String key : keys) {
 			String value = filters.get(key);
+
 			switch (key) {
 			case "id":
 				predicates.add(builder.equal(product.get(Product_.id), value));
@@ -121,12 +124,12 @@ public class ProductDaoImpl extends AbstractDaoImpl<Product> implements
 						+ "%"));
 				break;
 			case "keywords":
-				predicates.add(builder.equal(product.get(Product_.keywords),
+				predicates.add(builder.like(product.get(Product_.keywords),
 						"%" + value + "%"));
 				break;
 			case "company":
 				Join<Product, Company> company = product.join(Product_.company);
-				predicates.add(builder.equal(company.get(Company_.id), "%"
+				predicates.add(builder.like(company.get(Company_.name), "%"
 						+ value + "%"));
 				break;
 			}

@@ -19,12 +19,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
 @WebServlet("/product/list.do")
 public class ListProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private transient Logger log = Logger.getLogger(getClass());
 	@Inject
 	private ProductService productService;
 	@Inject

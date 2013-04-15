@@ -20,27 +20,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CreateProduct
+ * Servlet implementation class EditCompany
  */
-@WebServlet("/product/create.do")
-public class CreateProduct extends HttpServlet {
+@WebServlet("/product/edit.do")
+public class EditProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@Inject
-	private CompanyService companyService;
+
 	@Inject
 	private ProductService productService;
+	@Inject
+	private CompanyService companyService;
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Product product = new Product();
-		List<Company> companies = this.companyService.getActiveCompanies();
-		request.setAttribute("product", product);
-		request.setAttribute("companies", companies);
-		request.getRequestDispatcher("/WEB-INF/views/product/form.jsp").forward(
-				request, response);
+		ParamParser p = new ParamParser(request);
+		int productId = p.getInt("productId");
+		if (productId <= 0) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		} else {
+			Product product = this.productService.getById(productId);
+			if (product == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			} else {
+				request.setAttribute("product", product);
+				List<Company> companies = this.companyService.getActiveCompanies();
+				request.setAttribute("companies", companies);
+				request.getRequestDispatcher("/WEB-INF/views/product/form.jsp")
+						.forward(request, response);
+			}
+		}
 	}
 
 	/**
@@ -49,17 +61,18 @@ public class CreateProduct extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Product product = new Product();
 		ParamParser p = new ParamParser(request);
+		int productId = p.getInt("id");
+		Product product= this.productService.getById(productId);
 		product.setName(p.getString("name"));
 		product.setKeywords(p.getString("keywords"));
 		product.setCreatedon(new Date());
 		int companyId = p.getInt("company");
 		product.setCompany(this.companyService.getById(companyId));
 		try {
-			product = this.productService.save(product);
+			product = this.productService.update(product);
 			response.sendRedirect(getServletContext().getContextPath()
-					+ "/company/view.do?companyId=" + product.getId());
+					+ "/product/view.do?productId=" + product.getId());
 		} catch (EJBException e) {
 			if (e.getCause() instanceof ValidationException) {
 				ValidationException ve = (ValidationException) e.getCause();

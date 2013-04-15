@@ -6,7 +6,7 @@
 
 <form id="productForm">
 	<fieldset>
-		<legend> Product Details </legend>
+		<legend>Product Details</legend>
 		<div class="row-fluid">
 			<c:if test="${product.id gt 0}">
 				<div class="span6">
@@ -15,7 +15,7 @@
 						value="${product.id }" disabled="disabled">
 				</div>
 			</c:if>
-		
+
 			<div class="span6">
 				<label for="name">
 					Name <span class="required">*</span>
@@ -23,13 +23,31 @@
 				<input type="text" id="name" name="name" class="span12"
 					value="${product.name }">
 			</div>
-		<div class="span6">
-				<label for="createdon">
-					Created On <span class="required">*</span>
+		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<label for="companyId">
+					Company<span class="required">*</span>
 				</label>
-				<input type="text" id="createdon" name="createdon" class="span12"
-					value="${product.createdon }">
+				<select id="companyId" name="companyId" class="span12">
+					<option value="">Select product</option>
+					<c:forEach items="${companies}" var="company">
+						<option value="${company.id}"
+							<c:if test="${product.company.id eq company.id}">selected="selected"></c:if>>
+							<c:out value="${company.name }" />
+						</option>
+					</c:forEach>
+				</select>
 			</div>
+			<c:if test="${product.id gt 0 }">
+				<div class="span6">
+					<label for="createdon">
+						Created On <span class="required">*</span>
+					</label>
+					<input type="text" id="createdon" name="createdon" class="span12"
+						value="${product.createdon }">
+				</div>
+			</c:if>
 		</div>
 		<div class="row-fluid">
 			<div class="span6">
@@ -40,10 +58,35 @@
 			</div>
 		</div>
 	</fieldset>
-	<div class="row-fluid">
-		<button type="button" id="submit" class="btn btn-primary">${company.id gt 0 ? 'Update' : 'Save' }
-			</button>
-		<button type="button" id="cancel" class="btn"
-			onclick="loadForm('/company/list.do','#content')">Cancel</button>
+		<div class="row-fluid">
+		<button type="button" id="submit" class="btn btn-primary"
+			href="javascript:;">${product.id gt 0 ? 'Update' : 'Save' }
+		</button>
+		<button type="button" id="cancel" class="btn" href="javascript:;"
+			onclick="loadForm('/product/list.do','#content')">Cancel</button>
 	</div>
 </form>
+<script type="text/javascript">
+	$(function() {
+		<c:choose>
+		<c:when test="${product.id gt 0 }">
+		changeHeading('Update Product #${product.id}');
+		changeTitle('Update product #${product.id} | Admin Panel');
+		</c:when>
+		<c:otherwise>
+		changeHeading('Create New product');
+		changeTitle('Create New product | Admin Panel');
+		</c:otherwise>
+		</c:choose>
+		$('#submit').click(function() {
+			<c:choose>
+			<c:when test="${product.id gt 0 }">
+			submitForm("#productForm", "/product/edit.do", "#content");
+			</c:when>
+			<c:otherwise>
+			submitForm("#productForm", "/product/create.do", "#content");
+			</c:otherwise>
+			</c:choose>
+		});
+	});
+</script>

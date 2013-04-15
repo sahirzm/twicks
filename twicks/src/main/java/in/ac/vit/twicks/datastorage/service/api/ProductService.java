@@ -11,18 +11,10 @@ import java.util.List;
  * @author sahir
  *
  */
-public interface ProductService {
+public interface ProductService extends AbstractService<Product>{
 
-	Product create(Product product);
-	void delete(Product product);
-	void deleteById(Integer productId);
-	List<Product> getAll();
 	List<Product> getAllByCompanyId(Integer companyId);
 
 	List<Product> getAllToFetch();
-
-	Product getById(Integer id);
-
-	Product update(Product product);
 
 }

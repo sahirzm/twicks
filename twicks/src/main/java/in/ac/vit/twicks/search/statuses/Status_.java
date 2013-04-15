@@ -7,14 +7,14 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2013-04-14T21:45:19.773+0530")
+@Generated(value="Dali", date="2013-04-15T10:43:43.541+0530")
 @StaticMetamodel(Status.class)
 public class Status_ {
 	public static volatile SingularAttribute<Status, Integer> id;
 	public static volatile SingularAttribute<Status, String> statusId;
+	public static volatile SingularAttribute<Status, Product> product;
 	public static volatile SingularAttribute<Status, String> text;
 	public static volatile SingularAttribute<Status, Date> timestamp;
 	public static volatile SingularAttribute<Status, Date> createdOn;
 	public static volatile SingularAttribute<Status, Sources> source;
-	public static volatile SingularAttribute<Status, Product> product;
 }

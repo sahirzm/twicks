@@ -98,4 +98,9 @@ public class CompanyServiceImpl implements CompanyService {
 		return this.getCompanyDao().getCount(filters);
 	}
 
+	@Override
+	public Company getById(int id) {
+		return this.getCompanyDao().getById(id);
+	}
+
 }

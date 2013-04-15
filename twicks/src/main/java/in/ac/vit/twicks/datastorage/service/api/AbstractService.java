@@ -22,4 +22,5 @@ public interface AbstractService<X> {
 			String sortOrder, Map<String, String> filters);
 	
 	public int getCount(Map<String, String> filters);
+	public X getById(int id);
 }

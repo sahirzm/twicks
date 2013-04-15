@@ -68,5 +68,5 @@ source varchar(20) not null,
 discriminator varchar(20),
 isolanguagecode varchar(10),
 likes integer,
-foreign key(product_id) references product(id),
+foreign key(product_id) references product(id)
 );

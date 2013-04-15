@@ -1,0 +1,17 @@
+                List of relations
+ Schema |        Name         |   Type   | Owner 
+--------+---------------------+----------+-------
+ public | company             | table    | sahir
+ public | company_id_seq      | sequence | sahir
+ public | company_id_seq1     | sequence | sahir
+ public | product             | table    | sahir
+ public | product_id_seq      | sequence | sahir
+ public | product_id_seq1     | sequence | sahir
+ public | result              | table    | sahir
+ public | result_id_seq       | sequence | sahir
+ public | result_id_seq1      | sequence | sahir
+ public | twicks_user         | table    | sahir
+ public | twicks_user_id_seq  | sequence | sahir
+ public | twicks_user_id_seq1 | sequence | sahir
+(12 rows)
+

@@ -41,6 +41,7 @@ public class ViewProduct extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			} else {
+				request.setAttribute("product", product);
 				request.getRequestDispatcher("/WEB-INF/views/product/view.jsp")
 						.forward(request, response);
 			}

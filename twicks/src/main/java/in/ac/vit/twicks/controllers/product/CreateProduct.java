@@ -59,7 +59,7 @@ public class CreateProduct extends HttpServlet {
 		try {
 			product = this.productService.save(product);
 			response.sendRedirect(getServletContext().getContextPath()
-					+ "/company/view.do?companyId=" + product.getId());
+					+ "/product/view.do?productId=" + product.getId());
 		} catch (EJBException e) {
 			if (e.getCause() instanceof ValidationException) {
 				ValidationException ve = (ValidationException) e.getCause();

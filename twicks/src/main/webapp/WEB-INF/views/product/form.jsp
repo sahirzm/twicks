@@ -29,8 +29,8 @@
 				<label for="company">
 					Company<span class="required">*</span>
 				</label>
-				<select id="company" name="company" class="span12">
-					<option value="">Select product</option>
+						<select id="company" name="company" class="span12">
+					<option value="">Select Company</option>
 					<c:forEach items="${companies}" var="company">
 						<option value="${company.id}"
 							<c:if test="${product.company.id eq company.id}">selected="selected"</c:if> >

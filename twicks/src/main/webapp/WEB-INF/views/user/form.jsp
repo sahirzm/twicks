@@ -85,7 +85,7 @@
 				<label for="password">
 					Password <span class="required">*</span>
 				</label>
-				<input type="text" id="password" name="password" class="span12"
+				<input type="password" id="password" name="password" class="span12"
 					value="${user.password }">
 			</div>
 			</div>
@@ -112,4 +112,28 @@
 		<button type="button" id="cancel" class="btn"
 			onclick="loadForm('/company/list.do','#content')">Cancel</button>
 	</div>
+	<script type="text/javascript">
+	$(function() {
+		<c:choose>
+		<c:when test="${product.id gt 0 }">
+		changeHeading('Update User #${user.id}');
+		changeTitle('Update User #${user.id} | Admin Panel');
+		</c:when>
+		<c:otherwise>
+		changeHeading('Create New User');
+		changeTitle('Create New User | Admin Panel');
+		</c:otherwise>
+		</c:choose>
+		$('#submit').click(function() {
+			<c:choose>
+			<c:when test="${user.id gt 0 }">
+			submitForm("#userForm", "/user/edit.do", "#content");
+			</c:when>
+			<c:otherwise>
+			submitForm("#userForm", "/user/create.do", "#content");
+			</c:otherwise>
+			</c:choose>
+		});
+	});
+</script>
 </form>

@@ -6,7 +6,6 @@ import in.ac.vit.twicks.utils.ParamParser;
 
 import java.io.IOException;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ViewCompany
  */
-@RolesAllowed({ "admin" })
+
 @WebServlet("/company/view.do")
 public class ViewCompany extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,6 +40,7 @@ public class ViewCompany extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			} else {
+				request.setAttribute("company", company);
 				request.getRequestDispatcher("/WEB-INF/views/company/view.jsp")
 						.forward(request, response);
 			}

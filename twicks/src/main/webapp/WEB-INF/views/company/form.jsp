@@ -27,9 +27,9 @@
 		<div class="row-fluid">
 			<div class="span6">
 				<label for="address">
-					Address<span class="required">*</span>
+					Address
 				</label>
-				<textarea type="text" id="address" name="address" class="span12">${company.address }</textarea>
+				<textarea id="address" name="address" class="span12">${company.address }</textarea>
 			</div>
 		</div>
 		<div class="row-fluid">

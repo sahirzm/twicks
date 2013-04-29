@@ -16,9 +16,10 @@ import com.restfb.FacebookClient;
 import com.restfb.FacebookClient.AccessToken;
 import com.restfb.Parameter;
 import com.restfb.types.Post;
+import java.util.Date;
 
 /**
- * @author sahir
+ * @author sahir,kishan
  * 
  */
 public class FacebookFetcher extends FetcherImpl implements Fetcher {
@@ -40,12 +41,27 @@ public class FacebookFetcher extends FetcherImpl implements Fetcher {
 					Parameter.with("since", this.getStartTimeStamp()),
 					Parameter.with("until", this.getEndTimeStamp()),
 					Parameter.with("q", product.getKeywords()));
-
+                        
+                        int breakcheck=0;
+                        long starttimestamp = Long.parseLong(this.getStartTimeStamp());
+                        Date startd = new Date(starttimestamp);  
+                         
 			while (publicSearch != null) {
 				for (int i = 0; i < publicSearch.getData().size(); i++) {
 					FacebookStatus status = new FacebookStatus();
 					Post post = publicSearch.getData().get(i);
-					status.setStatusId(post.getId());
+					
+                                        if (startd.after(post.getCreatedTime()))
+                                        {
+                                            breakcheck=1;
+                                            break;
+                                            
+                                        }
+                                        if(breakcheck==1)
+                                         {
+                                            break;
+                                          }
+                                        status.setStatusId(post.getId());
 					status.setLikes(post.getLikesCount());
 					status.setCreatedOn(new java.util.Date());
 					status.setProduct(product);

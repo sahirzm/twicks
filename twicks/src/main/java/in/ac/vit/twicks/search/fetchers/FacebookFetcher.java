@@ -57,10 +57,7 @@ public class FacebookFetcher extends FetcherImpl implements Fetcher {
                                             break;
                                             
                                         }
-                                        if(breakcheck==1)
-                                         {
-                                            break;
-                                          }
+                                        
                                         status.setStatusId(post.getId());
 					status.setLikes(post.getLikesCount());
 					status.setCreatedOn(new java.util.Date());
@@ -69,6 +66,10 @@ public class FacebookFetcher extends FetcherImpl implements Fetcher {
 					status.setTimestamp(post.getCreatedTime());
 					feeds.add(status);
 				}
+                                if(breakcheck==1)
+                                {
+                                    break;
+                                }
 				publicSearch = publicSearch.hasNext() ? facebookClient
 						.fetchConnectionPage(publicSearch.getNextPageUrl(),
 								Post.class) : null;

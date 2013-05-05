@@ -66,10 +66,9 @@ public abstract class FetcherImpl implements Fetcher {
 
 	@Override
 	public void run() {
-
 		for (Product p : this.products) {
 			List<Status> statuses = this.fetch(p);
-			statuses = classifier.classify(statuses);
+			statuses = this.classifier.classify(statuses);
 			for (Status status : statuses) {
 				this.getStatusService().storeStatus(status);
 			}

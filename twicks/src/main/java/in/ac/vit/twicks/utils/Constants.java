@@ -12,5 +12,13 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class Constants {
-    public String path;
+    private String path;
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

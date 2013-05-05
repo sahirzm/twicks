@@ -3,16 +3,13 @@
  */
 package in.ac.vit.twicks.search.fetchers;
 
-import java.util.Map;
-
 import in.ac.vit.twicks.dataanalysis.naivebayes.Classifier;
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
 import in.ac.vit.twicks.entities.Product;
-import java.util.concurrent.Executor;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.apache.log4j.Logger;
-
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -28,7 +25,7 @@ public class TwitterStatusListener implements StatusListener {
     private StatusService statusService;
     private Classifier classifier;
     private Map<String, Product> keywords;
-    private Executor exec = Executors.newFixedThreadPool(10);
+    private ExecutorService exec = Executors.newFixedThreadPool(10);
 
     public TwitterStatusListener(StatusService statusService,
             Classifier classifier, Map<String, Product> keywords) {
@@ -46,7 +43,7 @@ public class TwitterStatusListener implements StatusListener {
     public void onStatus(Status status) {
         TwitterStatusThread thread = new TwitterStatusThread(status,
                 statusService, classifier, keywords);
-        exec.execute(thread);
+        exec.submit(thread);
     }
 
     @Override

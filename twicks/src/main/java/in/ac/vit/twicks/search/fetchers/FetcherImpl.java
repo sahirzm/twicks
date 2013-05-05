@@ -13,6 +13,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author sahir
  * 
@@ -21,6 +23,7 @@ public abstract class FetcherImpl implements Fetcher {
 	private String endTimeStamp;
 	private List<Product> products;
 	private String startTimestamp;
+	private transient Logger log = Logger.getLogger(this.getClass());
 
 	@Inject
 	private StatusService statusService;
@@ -69,6 +72,7 @@ public abstract class FetcherImpl implements Fetcher {
 		for (Product p : this.products) {
 			List<Status> statuses = this.fetch(p);
 			statuses = this.classifier.classify(statuses);
+			this.log.info("Persisting statuses size = " + statuses.size());
 			for (Status status : statuses) {
 				this.getStatusService().storeStatus(status);
 			}

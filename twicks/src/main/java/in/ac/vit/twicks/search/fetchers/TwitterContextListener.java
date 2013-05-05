@@ -22,7 +22,7 @@ public class TwitterContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		this.constants.setPath(sce.getServletContext().getRealPath("/"));
 		this.log.info("Context initialized...starting twitter streamer");
-		// this.streamer.startStreaming();
+		this.streamer.startStreaming();
 	}
 
 	@Override

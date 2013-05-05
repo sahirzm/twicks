@@ -1,13 +1,9 @@
 package in.ac.vit.twicks.controllers;
 
 import in.ac.vit.twicks.entities.User;
-
 import java.io.Serializable;
-
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-@SessionScoped
 @Named("currentUser")
 public class CurrentUser implements Serializable {
 

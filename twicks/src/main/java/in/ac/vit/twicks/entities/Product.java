@@ -3,164 +3,153 @@ package in.ac.vit.twicks.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the product database table.
- * 
+ *
  */
-
 @Entity
-@NamedQueries({ @NamedQuery(name = "productsByCompanyId", query = "SELECT p FROM Product p where p.company.id = :companyId") })
+@NamedQueries({
+    @NamedQuery(name = "productsByCompanyId", query = "SELECT p FROM Product p where p.company.id = :companyId")})
 public class Product implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "PRODUCT_ID_GENERATOR", sequenceName = "product_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_ID_GENERATOR")
-	private Integer id;
-	@NotNull
-	private Date createdon;
-	@NotNull
-	@Size(min = 2)
-	private String keywords;
-	@NotNull
-	@Size(min = 2)
-	private String name;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @SequenceGenerator(name = "PRODUCT_ID_GENERATOR", sequenceName = "product_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRODUCT_ID_GENERATOR")
+    private Integer id;
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdon;
+    @NotNull
+    @Size(min = 2)
+    private String keywords;
+    @NotNull
+    @Size(min = 2)
+    private String name;
+    // bi-directional many-to-one association to Company
+    @ManyToOne
+    @NotNull
+    private Company company;
+    // bi-directional many-to-one association to Result
+    @OneToMany(mappedBy = "product")
+    private List<Result> results;
 
-	// bi-directional many-to-one association to Company
-	@ManyToOne
-	@NotNull
-	private Company company;
+    public Product() {
+    }
 
-	// bi-directional many-to-one association to Result
-	@OneToMany(mappedBy = "product")
-	private List<Result> results;
+    public Result addResult(Result result) {
+        this.getResults().add(result);
+        result.setProduct(this);
 
-	public Product() {
-	}
+        return result;
+    }
 
-	public Result addResult(Result result) {
-		this.getResults().add(result);
-		result.setProduct(this);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Product)) {
+            return false;
+        }
+        Product other = (Product) obj;
+        if (this.id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!this.id.equals(other.id)) {
+            return false;
+        }
 
-		return result;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Product)) {
-			return false;
-		}
-		Product other = (Product) obj;
-		if (this.id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!this.id.equals(other.id)) {
-			return false;
-		}
+    public Company getCompany() {
+        return this.company;
+    }
 
-		return true;
-	}
+    public Date getCreatedon() {
+        return this.createdon;
+    }
 
-	public Company getCompany() {
-		return this.company;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public Date getCreatedon() {
-		return this.createdon;
-	}
+    public String getKeywords() {
+        return this.keywords;
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getKeywords() {
-		return this.keywords;
-	}
+    public List<Result> getResults() {
+        return this.results;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = (prime * result)
+                + ((this.company == null) ? 0 : this.company.hashCode());
+        result = (prime * result)
+                + ((this.createdon == null) ? 0 : this.createdon.hashCode());
+        result = (prime * result)
+                + ((this.id == null) ? 0 : this.id.hashCode());
+        result = (prime * result)
+                + ((this.keywords == null) ? 0 : this.keywords.hashCode());
+        result = (prime * result)
+                + ((this.name == null) ? 0 : this.name.hashCode());
+        result = (prime * result)
+                + ((this.results == null) ? 0 : this.results.hashCode());
+        return result;
+    }
 
-	public List<Result> getResults() {
-		return this.results;
-	}
+    public Result removeResult(Result result) {
+        this.getResults().remove(result);
+        result.setProduct(null);
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (prime * result)
-				+ ((this.company == null) ? 0 : this.company.hashCode());
-		result = (prime * result)
-				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
-		result = (prime * result)
-				+ ((this.id == null) ? 0 : this.id.hashCode());
-		result = (prime * result)
-				+ ((this.keywords == null) ? 0 : this.keywords.hashCode());
-		result = (prime * result)
-				+ ((this.name == null) ? 0 : this.name.hashCode());
-		result = (prime * result)
-				+ ((this.results == null) ? 0 : this.results.hashCode());
-		return result;
-	}
+        return result;
+    }
 
-	public Result removeResult(Result result) {
-		this.getResults().remove(result);
-		result.setProduct(null);
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
-		return result;
-	}
+    public void setCreatedon(Date createdon) {
+        this.createdon = createdon;
+    }
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setCreatedon(Date createdon) {
-		this.createdon = createdon;
-	}
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setResults(List<Result> results) {
-		this.results = results;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + this.id + ", createdon=" + this.createdon
-				+ ", keywords=" + this.keywords + ", name=" + this.name
-				+ ", company=" + this.company + ", results=" + this.results
-				+ "]";
-	}
-
+    @Override
+    public String toString() {
+        return "Product [id=" + this.id + ", createdon=" + this.createdon
+                + ", keywords=" + this.keywords + ", name=" + this.name
+                + ", company=" + this.company + ", results=" + this.results
+                + "]";
+    }
 }

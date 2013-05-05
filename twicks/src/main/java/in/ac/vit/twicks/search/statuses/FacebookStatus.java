@@ -4,45 +4,34 @@
  */
 package in.ac.vit.twicks.search.statuses;
 
+import in.ac.vit.twicks.search.fetchers.Sources;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-import com.mongodb.BasicDBObject;
-
-import in.ac.vit.twicks.search.fetchers.Sources;
-
 /**
- * 
+ *
  * @author kishan
  */
 @Entity
 @DiscriminatorValue("facebook")
 public class FacebookStatus extends Status {
 
-	private Long likes;
+    private long likes;
 
-	@Override
-	protected void declareSource() {
-		this.setSource(Sources.FACEBOOK);
-	}
+    public FacebookStatus() {
+        this.setSource(Sources.FACEBOOK);
+    }
 
-	@Override
-	public String toString() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public String toString() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-	public Long getLikes() {
-		return likes;
-	}
+    public long getLikes() {
+        return likes;
+    }
 
-	public void setLikes(Long likes) {
-		this.likes = likes;
-	}
-
-	@Override
-	public BasicDBObject getDBObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    public void setLikes(long likes) {
+        this.likes = likes;
+    }
 }

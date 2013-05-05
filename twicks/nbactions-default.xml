@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Jboss Deploy</actionName>
+            <displayName>Jboss Deploy</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>package</goal>
+                <goal>jboss-as:deploy</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>default</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

@@ -3,6 +3,7 @@ package in.ac.vit.twicks.datastorage.dao.postgres;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -10,6 +11,7 @@ import in.ac.vit.twicks.datastorage.dao.AbstractDaoImpl;
 import in.ac.vit.twicks.datastorage.dao.StatusDao;
 import in.ac.vit.twicks.search.statuses.Status;
 
+@Stateless
 public class StatusDaoImpl extends AbstractDaoImpl<Status> implements StatusDao {
 
 	@Inject

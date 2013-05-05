@@ -4,6 +4,7 @@
  */
 package in.ac.vit.twicks.search.fetchers;
 
+import in.ac.vit.twicks.dataanalysis.naivebayes.Classifier;
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
 import in.ac.vit.twicks.entities.Product;
 import in.ac.vit.twicks.search.statuses.Status;
@@ -20,9 +21,11 @@ public abstract class FetcherImpl implements Fetcher {
 	private String endTimeStamp;
 	private List<Product> products;
 	private String startTimestamp;
-	
+
 	@Inject
 	private StatusService statusService;
+	@Inject
+	private Classifier classifier;
 
 	public FetcherImpl() {
 
@@ -63,9 +66,10 @@ public abstract class FetcherImpl implements Fetcher {
 
 	@Override
 	public void run() {
-		
-		for(Product p : this.products){
+
+		for (Product p : this.products) {
 			List<Status> statuses = this.fetch(p);
+			statuses = classifier.classify(statuses);
 			for (Status status : statuses) {
 				this.getStatusService().storeStatus(status);
 			}

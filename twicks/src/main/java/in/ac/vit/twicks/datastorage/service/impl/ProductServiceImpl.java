@@ -11,14 +11,7 @@ import in.ac.vit.twicks.entities.Company;
 import in.ac.vit.twicks.entities.Product;
 import in.ac.vit.twicks.entities.UserRoles;
 import in.ac.vit.twicks.exceptions.ValidationException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
@@ -71,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
 				.getActiveCompanies();
 		List<Product> products = new ArrayList<>();
 		for (Company company : activeCompanies) {
-			products.addAll(this.getAllByCompanyId(company.getId()));
+			products.addAll(this.getProductDao().getAllByCompanyId(company.getId()));
 		}
 		return products;
 	}

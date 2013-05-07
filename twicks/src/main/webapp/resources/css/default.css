@@ -1,12 +1,14 @@
 div#declaration {
 	padding-top: 20px;
 }
+
 div#declaration p {
-	font-size:32px;
+	font-size: 32px;
 	font-weight: bold;
 	text-align: center;
-	line-height:1.5em
+	line-height: 1.5em
 }
+
 div.error label {
 	color: #B94A48;
 }
@@ -61,6 +63,7 @@ ul.submenus li a:hover {
 .carousel-indicators li {
 	background-color: #999;
 }
+
 .carousel-indicators .active {
 	background-color: #222;
 }
@@ -104,4 +107,65 @@ div.dataTables_filter {
 
 div.dataTables_processing {
 	display: none;
+}
+
+div.productScore {
+	height: 150px;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	display: block;
+	line-height: 20px;
+	padding: 20px;
+	background-color: #FAFAFA;
+	background-image: -moz-linear-gradient(center top, #FFFFFF, #F2F2F2);
+	background-repeat: repeat-x;
+	text-align: center;
+}
+
+div.insightContainer {
+	border: 1px solid #DDDDDD;
+	border-radius: 4px 4px 4px 4px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+	display:none;
+	margin-top:20px;
+}
+
+div.productScore div.name {
+	font-size:26px;
+	margin-bottom:20px;
+	font-weight: bold;
+}
+
+div.productScore div.score {
+	font-size:36px;
+	text-align: center;
+}
+
+div.productScore div.score div {
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
+	background-color: #0088cc;
+	color: #fff;
+	line-height: 80px;
+    padding: 10px;
+    width: 80px;
+    display: inline-block;
+}
+
+div.productScore:hover {
+    cursor: pointer;
+    background-color: #0088cc;
+    background-image: -moz-linear-gradient(center top, #0088cc, #0088cc);
+}
+
+div.productScore:hover div.name {
+    color:#fff;
+}
+
+div.productScore:hover div.score div {
+    background-color:#fff;
+    color:#0088CC;
+}
 }

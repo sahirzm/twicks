@@ -19,6 +19,12 @@
 	src="${baseUrl}/resources/jquery-1.9.1.min.js"></script>
 <script type="text/javascript"
 	src="${baseUrl}/resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {
+		packages : [ "corechart" ]
+	});
+</script>
 <title><tiles:insertAttribute name="pageTitle" /></title>
 <script type="text/javascript">
 	var BASE_URL = "${baseUrl}";

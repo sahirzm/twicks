@@ -2,4 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<h1>Home page contents here</h1>
+<script type="text/javascript">
+	$(function() {
+		loadForm('/customerdashboard.do', '#content', '');
+	});
+</script>

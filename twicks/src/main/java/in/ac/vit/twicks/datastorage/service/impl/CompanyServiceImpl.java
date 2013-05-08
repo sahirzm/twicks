@@ -8,7 +8,6 @@ package in.ac.vit.twicks.datastorage.service.impl;
  * @author sahir maredia
  */
 
-import in.ac.vit.twicks.controllers.CurrentUser;
 import in.ac.vit.twicks.datastorage.dao.CompanyDao;
 import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.entities.Company;
@@ -20,24 +19,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
-
 import javax.validation.Validator;
 
 @Stateless
 @RolesAllowed({ "admin" })
 public class CompanyServiceImpl implements CompanyService {
-	@Inject
-	private CurrentUser currentUser;
-
+	@Resource
+	private SessionContext context;
 	@Inject
 	private CompanyDao companyDao;
 	@Inject
 	private Validator validator;
-	
+
 	@Override
 	public List<Company> getActiveCompanies() {
 		return this.getCompanyDao().getBySubscriptionDate(new Date());
@@ -90,7 +89,8 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<Company> get(int first, int pageSize, String sortField,
 			String sortOrder, Map<String, String> filters) {
-		return this.getCompanyDao().get(first, pageSize, sortField, sortOrder, filters);
+		return this.getCompanyDao().get(first, pageSize, sortField, sortOrder,
+				filters);
 	}
 
 	@Override

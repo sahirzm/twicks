@@ -3,15 +3,26 @@
  */
 package in.ac.vit.twicks.datastorage.service.impl;
 
-import in.ac.vit.twicks.controllers.CurrentUser;
 import in.ac.vit.twicks.datastorage.dao.ProductDao;
 import in.ac.vit.twicks.datastorage.service.api.CompanyService;
 import in.ac.vit.twicks.datastorage.service.api.ProductService;
 import in.ac.vit.twicks.entities.Company;
 import in.ac.vit.twicks.entities.Product;
+import in.ac.vit.twicks.entities.User;
 import in.ac.vit.twicks.entities.UserRoles;
 import in.ac.vit.twicks.exceptions.ValidationException;
-import java.util.*;
+import in.ac.vit.twicks.security.TwicksPrincipal;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
@@ -30,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
 	private Validator validator;
 	@Inject
 	private CompanyService companyService;
-	@Inject
-	private CurrentUser currentUser;
+	@Resource
+	private SessionContext context;
 
 	@Override
 	public Product save(Product product) {
@@ -52,8 +63,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> getAllByCompanyId(Integer companyId) {
-		if (!this.currentUser.isUserRole(UserRoles.ADMIN)) {
-			companyId = this.currentUser.getUser().getCompany().getId();
+
+		if (!this.context.isCallerInRole(UserRoles.ADMIN)) {
+			Principal pp = this.context.getCallerPrincipal();
+			TwicksPrincipal tp = (TwicksPrincipal) pp;
+			User currentUser = tp.getUser();
+			companyId = currentUser.getCompany().getId();
 		}
 		return this.getProductDao().getAllByCompanyId(companyId);
 	}
@@ -64,7 +79,8 @@ public class ProductServiceImpl implements ProductService {
 				.getActiveCompanies();
 		List<Product> products = new ArrayList<>();
 		for (Company company : activeCompanies) {
-			products.addAll(this.getProductDao().getAllByCompanyId(company.getId()));
+			products.addAll(this.getProductDao().getAllByCompanyId(
+					company.getId()));
 		}
 		return products;
 	}
@@ -101,21 +117,28 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int getCount() {
-		if (!this.currentUser.isUserRole(UserRoles.ADMIN)) {
-			int companyId = this.currentUser.getUser().getCompany().getId();
+		if (!this.context.isCallerInRole(UserRoles.ADMIN)) {
+			Principal pp = this.context.getCallerPrincipal();
+			TwicksPrincipal tp = (TwicksPrincipal) pp;
+			User currentUser = tp.getUser();
+			int companyId = currentUser.getCompany().getId();
 			Map<String, String> filter = new HashMap<String, String>(1);
-			filter.put("company", companyId+"");
+			filter.put("company", companyId + "");
 			return this.getCount(filter);
-		} else
+		} else {
 			return this.productDao.getCount().intValue();
+		}
 	}
 
 	@Override
 	public List<Product> get(int first, int pageSize, String sortField,
 			String sortOrder, Map<String, String> filters) {
-		if (!this.currentUser.isUserRole(UserRoles.ADMIN)) {
-			int companyId = this.currentUser.getUser().getCompany().getId();
-			filters.put("company", companyId+"");
+		if (!this.context.isCallerInRole(UserRoles.ADMIN)) {
+			Principal pp = this.context.getCallerPrincipal();
+			TwicksPrincipal tp = (TwicksPrincipal) pp;
+			User currentUser = tp.getUser();
+			int companyId = currentUser.getCompany().getId();
+			filters.put("company", companyId + "");
 		}
 		return this.productDao.get(first, pageSize, sortField, sortOrder,
 				filters);
@@ -123,9 +146,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public int getCount(Map<String, String> filters) {
-		if (!this.currentUser.isUserRole(UserRoles.ADMIN)) {
-			int companyId = this.currentUser.getUser().getCompany().getId();
-			filters.put("company", companyId+"");
+		if (!this.context.isCallerInRole(UserRoles.ADMIN)) {
+			Principal pp = this.context.getCallerPrincipal();
+			TwicksPrincipal tp = (TwicksPrincipal) pp;
+			User currentUser = tp.getUser();
+			int companyId = currentUser.getCompany().getId();
+			filters.put("company", companyId + "");
 		}
 		return this.productDao.getCount(filters);
 	}

@@ -13,6 +13,9 @@ public interface UserService extends AbstractService<User> {
 
 	User authenticate(String username, String password);
 
-	User changePassword(int id, String oldPassword, String newPassword) throws Exception;
+	User changePassword(int id, String oldPassword, String newPassword)
+			throws Exception;
+
+	User getByUsername(String username);
 
 }

@@ -3,7 +3,6 @@
  */
 package in.ac.vit.twicks.datastorage.service.impl;
 
-import in.ac.vit.twicks.controllers.CurrentUser;
 import in.ac.vit.twicks.datastorage.dao.UserDao;
 import in.ac.vit.twicks.datastorage.service.api.UserService;
 import in.ac.vit.twicks.entities.User;
@@ -33,8 +32,6 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Inject
 	private Validator validator;
-	@Inject
-	private CurrentUser currentUser;
 
 	@Override
 	public User authenticate(String username, String password) {
@@ -66,7 +63,8 @@ public class UserServiceImpl implements UserService {
 				exp.addError("username", "username already taken");
 			}
 		}
-		if (user.getRole() != null && user.getRole().equals(UserRoles.CUSTOMER)) {
+		if ((user.getRole() != null)
+				&& user.getRole().equals(UserRoles.CUSTOMER)) {
 			if (user.getCompany() == null) {
 				exp.addError("company", "cannot be empty for customer");
 			}
@@ -85,7 +83,8 @@ public class UserServiceImpl implements UserService {
 		ValidationException exp = new ValidationException(
 				new HashSet<ConstraintViolation<?>>(violations));
 
-		if (user.getRole() != null && user.getRole().equals(UserRoles.CUSTOMER)) {
+		if ((user.getRole() != null)
+				&& user.getRole().equals(UserRoles.CUSTOMER)) {
 			if (user.getCompany() == null) {
 				exp.addError("company", "cannot be empty for customer");
 			}
@@ -124,6 +123,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int getCount(Map<String, String> filters) {
 		return this.getUserDao().getCount(filters);
+	}
+
+	@Override
+	public User getByUsername(String username) {
+		return this.userDao.getByUsername(username);
 	}
 
 	@Override

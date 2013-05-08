@@ -53,18 +53,18 @@ public class User implements Serializable {
 	private String middlename;
 
 	@NotNull
-	@Pattern(regexp="^[0-9]{4}(-[0-9]{3}){2}$", message="invalid format XXXX-XXX-XXX")
+	@Pattern(regexp = "^[0-9]{4}(-[0-9]{3}){2}$", message = "invalid format XXXX-XXX-XXX")
 	private String mobileno;
 
 	@NotNull
-	@Size(min=6)
+	@Size(min = 6)
 	private String password;
 
 	@NotNull
 	private String role;
 
 	@NotNull
-	@Size(min=3)
+	@Size(min = 3)
 	private String username;
 
 	// bi-directional many-to-one association to Company
@@ -180,39 +180,47 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", address=" + address + ", createdon="
-				+ createdon + ", email=" + email + ", firstname=" + firstname
-				+ ", lastloggedin=" + lastloggedin + ", lastname=" + lastname
-				+ ", middlename=" + middlename + ", mobileno=" + mobileno
-				+ ", password=" + password + ", role=" + role + ", username="
-				+ username + ", company=" + company + "]";
+		return "User [id=" + this.id + ", address=" + this.address
+				+ ", createdon=" + this.createdon + ", email=" + this.email
+				+ ", firstname=" + this.firstname + ", lastloggedin="
+				+ this.lastloggedin + ", lastname=" + this.lastname
+				+ ", middlename=" + this.middlename + ", mobileno="
+				+ this.mobileno + ", password=" + this.password + ", role="
+				+ this.role + ", username=" + this.username + ", company="
+				+ this.company + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result
-				+ ((createdon == null) ? 0 : createdon.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result
-				+ ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((lastloggedin == null) ? 0 : lastloggedin.hashCode());
-		result = prime * result
-				+ ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result
-				+ ((middlename == null) ? 0 : middlename.hashCode());
-		result = prime * result
-				+ ((mobileno == null) ? 0 : mobileno.hashCode());
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result
-				+ ((username == null) ? 0 : username.hashCode());
+		result = (prime * result)
+				+ ((this.address == null) ? 0 : this.address.hashCode());
+		result = (prime * result)
+				+ ((this.company == null) ? 0 : this.company.hashCode());
+		result = (prime * result)
+				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
+		result = (prime * result)
+				+ ((this.email == null) ? 0 : this.email.hashCode());
+		result = (prime * result)
+				+ ((this.firstname == null) ? 0 : this.firstname.hashCode());
+		result = (prime * result)
+				+ ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result)
+				+ ((this.lastloggedin == null) ? 0 : this.lastloggedin
+						.hashCode());
+		result = (prime * result)
+				+ ((this.lastname == null) ? 0 : this.lastname.hashCode());
+		result = (prime * result)
+				+ ((this.middlename == null) ? 0 : this.middlename.hashCode());
+		result = (prime * result)
+				+ ((this.mobileno == null) ? 0 : this.mobileno.hashCode());
+		result = (prime * result)
+				+ ((this.password == null) ? 0 : this.password.hashCode());
+		result = (prime * result)
+				+ ((this.role == null) ? 0 : this.role.hashCode());
+		result = (prime * result)
+				+ ((this.username == null) ? 0 : this.username.hashCode());
 		return result;
 	}
 
@@ -228,14 +236,18 @@ public class User implements Serializable {
 			return false;
 		}
 		User other = (User) obj;
-		if (id == null) {
+		if (this.id == null) {
 			if (other.id != null) {
 				return false;
 			}
-		} else if (!id.equals(other.id)) {
+		} else if (!this.id.equals(other.id)) {
 			return false;
 		}
 		return true;
+	}
+
+	public String fullName() {
+		return this.firstname + " " + this.lastname;
 	}
 
 }

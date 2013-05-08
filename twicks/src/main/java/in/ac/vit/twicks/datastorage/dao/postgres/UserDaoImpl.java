@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -38,9 +39,15 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 
 	@Override
 	public User getByUsername(String username) {
-		return this.getEntityManager()
-				.createNamedQuery("user.findByUsername", User.class)
-				.setParameter("username", username).getSingleResult();
+		User user = null;
+		try {
+			user = this.getEntityManager()
+					.createNamedQuery("user.findByUsername", User.class)
+					.setParameter("username", username).getSingleResult();
+		} catch (NoResultException ex) {
+
+		}
+		return user;
 	}
 
 	@Override
@@ -97,8 +104,9 @@ public class UserDaoImpl extends AbstractDaoImpl<User> implements UserDao {
 	private void buildFilters(Map<String, String> filters,
 			CriteriaQuery<?> criteria, CriteriaBuilder builder, Root<User> user) {
 
-		if (filters == null)
+		if (filters == null) {
 			return;
+		}
 
 		Set<String> keys = filters.keySet();
 		ArrayList<Predicate> predicates = new ArrayList<>();

@@ -1,17 +1,21 @@
 package in.ac.vit.twicks.controllers;
 
 import in.ac.vit.twicks.entities.User;
+
 import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named("currentUser")
+@SessionScoped
 public class CurrentUser implements Serializable {
 
 	private User user;
 	private String username;
 
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(User user) {
@@ -19,7 +23,7 @@ public class CurrentUser implements Serializable {
 	}
 
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public void setUsername(String username) {
@@ -31,8 +35,8 @@ public class CurrentUser implements Serializable {
 	}
 
 	public boolean isUserRole(String role) {
-		return this.getUser() == null ? false : this.getUser()
-				.getRole().equals(role) ? true : false;
+		return this.getUser() == null ? false : this.getUser().getRole()
+				.equals(role) ? true : false;
 	}
 
 	public String getName() {

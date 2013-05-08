@@ -10,6 +10,21 @@
 		<div class="navbar-inner">
 			<div class="container">
 				<tags:mainmenu menus="${mainMenu }" />
+				<c:if test="${currentUser.loggedIn}">
+					<div class="navbar-text pull-right dropdown">
+
+						<a class="dropdown-toggle" id="dLabel" role="button"
+							data-toggle="dropdown" data-target="#" href="#"> 
+Welcome, ${currentUser.name}
+						</a> <b class="caret"></b>
+
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li><a href="#">My Profile</a></li>
+							<li><a href="${baseUrl}/logout.do">Logout</a></li>
+						</ul>
+
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -21,4 +36,3 @@
 		$('.dropdown-toggle').dropdown();
 	});
 </script>
-

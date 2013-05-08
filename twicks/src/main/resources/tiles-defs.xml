@@ -37,6 +37,13 @@
 		<put-attribute name="content" value="/WEB-INF/views/adminhome.jsp" />
 	</definition>
 	
+	<definition name="customerhomepage" extends="singleColumn">
+	    <put-attribute name="pageTitle" type="string"
+			value="Welcome to Twicks" />
+	    <put-attribute name="pageHeading" type="string" value="Dashboard"/>
+		<put-attribute name="content" value="/WEB-INF/views/customerhome.jsp" />
+	</definition>
+	
 	<definition name="signup" extends="twoColumns">
 		<put-attribute name="pageTitle" type="string"
 			value="WELCOME_MSG" />

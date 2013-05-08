@@ -19,197 +19,170 @@ import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the company database table.
- *
+ * 
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "companiesBySubDate", query = "SELECT c FROM Company c WHERE c.subscriptionDate >= :date")})
+@NamedQueries({ @NamedQuery(name = "companiesBySubDate", query = "SELECT c FROM Company c WHERE c.subscriptionDate >= :date") })
 public class Company implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @SequenceGenerator(name = "COMPANY_ID_GENERATOR", sequenceName = "company_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANY_ID_GENERATOR")
-    private Integer id;
-    private String address;
-    @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdon;
-    @NotNull
-    @Size(min = 2)
-    private String name;
-    @Temporal(TemporalType.DATE)
-    @NotNull
-    private Date subscriptionDate;
-    // bi-directional many-to-one association to Product
-    @OneToMany(mappedBy = "company")
-    private List<Product> products;
-    // bi-directional many-to-one association to Result
-    @OneToMany(mappedBy = "company")
-    private List<Result> results;
-    // bi-directional many-to-one association to TwicksUser
-    @OneToMany(mappedBy = "company")
-    private List<User> twicksUsers;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@SequenceGenerator(name = "COMPANY_ID_GENERATOR", sequenceName = "company_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPANY_ID_GENERATOR")
+	private Integer id;
+	private String address;
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdon;
+	@NotNull
+	@Size(min = 2)
+	private String name;
+	@Temporal(TemporalType.DATE)
+	@NotNull
+	private Date subscriptionDate;
+	// bi-directional many-to-one association to Product
+	@OneToMany(mappedBy = "company")
+	private List<Product> products;
+	// bi-directional many-to-one association to TwicksUser
+	@OneToMany(mappedBy = "company")
+	private List<User> twicksUsers;
 
-    public Company() {
-    }
+	public Company() {
+	}
 
-    public Product addProduct(Product product) {
-        this.getProducts().add(product);
-        product.setCompany(this);
+	public Product addProduct(Product product) {
+		this.getProducts().add(product);
+		product.setCompany(this);
 
-        return product;
-    }
+		return product;
+	}
 
-    public Result addResult(Result result) {
-        this.getResults().add(result);
-        result.setCompany(this);
+	public User addTwicksUser(User twicksUser) {
+		this.getTwicksUsers().add(twicksUser);
+		twicksUser.setCompany(this);
 
-        return result;
-    }
+		return twicksUser;
+	}
 
-    public User addTwicksUser(User twicksUser) {
-        this.getTwicksUsers().add(twicksUser);
-        twicksUser.setCompany(this);
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Company)) {
+			return false;
+		}
+		Company other = (Company) obj;
+		if (this.id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!this.id.equals(other.id)) {
+			return false;
+		}
+		return true;
+	}
 
-        return twicksUser;
-    }
+	public String getAddress() {
+		return this.address;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof Company)) {
-            return false;
-        }
-        Company other = (Company) obj;
-        if (this.id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
-    }
+	public Date getCreatedon() {
+		return this.createdon;
+	}
 
-    public String getAddress() {
-        return this.address;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public Date getCreatedon() {
-        return this.createdon;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public List<Product> getProducts() {
+		return this.products;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public Date getSubscriptionDate() {
+		return this.subscriptionDate;
+	}
 
-    public List<Product> getProducts() {
-        return this.products;
-    }
+	public List<User> getTwicksUsers() {
+		return this.twicksUsers;
+	}
 
-    public List<Result> getResults() {
-        return this.results;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result)
+				+ ((this.address == null) ? 0 : this.address.hashCode());
+		result = (prime * result)
+				+ ((this.createdon == null) ? 0 : this.createdon.hashCode());
+		result = (prime * result)
+				+ ((this.id == null) ? 0 : this.id.hashCode());
+		result = (prime * result)
+				+ ((this.name == null) ? 0 : this.name.hashCode());
+		result = (prime * result)
+				+ ((this.products == null) ? 0 : this.products.hashCode());
+		result = (prime * result)
+				+ ((this.subscriptionDate == null) ? 0 : this.subscriptionDate
+						.hashCode());
+		result = (prime * result)
+				+ ((this.twicksUsers == null) ? 0 : this.twicksUsers.hashCode());
+		return result;
+	}
 
-    public Date getSubscriptionDate() {
-        return this.subscriptionDate;
-    }
+	public Product removeProduct(Product product) {
+		this.getProducts().remove(product);
+		product.setCompany(null);
 
-    public List<User> getTwicksUsers() {
-        return this.twicksUsers;
-    }
+		return product;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = (prime * result)
-                + ((this.address == null) ? 0 : this.address.hashCode());
-        result = (prime * result)
-                + ((this.createdon == null) ? 0 : this.createdon.hashCode());
-        result = (prime * result)
-                + ((this.id == null) ? 0 : this.id.hashCode());
-        result = (prime * result)
-                + ((this.name == null) ? 0 : this.name.hashCode());
-        result = (prime * result)
-                + ((this.products == null) ? 0 : this.products.hashCode());
-        result = (prime * result)
-                + ((this.results == null) ? 0 : this.results.hashCode());
-        result = (prime * result)
-                + ((this.subscriptionDate == null) ? 0 : this.subscriptionDate.hashCode());
-        result = (prime * result)
-                + ((this.twicksUsers == null) ? 0 : this.twicksUsers.hashCode());
-        return result;
-    }
+	public User removeTwicksUser(User twicksUser) {
+		this.getTwicksUsers().remove(twicksUser);
+		twicksUser.setCompany(null);
 
-    public Product removeProduct(Product product) {
-        this.getProducts().remove(product);
-        product.setCompany(null);
+		return twicksUser;
+	}
 
-        return product;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Result removeResult(Result result) {
-        this.getResults().remove(result);
-        result.setCompany(null);
-        return result;
-    }
+	public void setCreatedon(Date createdon) {
+		this.createdon = createdon;
+	}
 
-    public User removeTwicksUser(User twicksUser) {
-        this.getTwicksUsers().remove(twicksUser);
-        twicksUser.setCompany(null);
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-        return twicksUser;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 
-    public void setCreatedon(Date createdon) {
-        this.createdon = createdon;
-    }
+	public void setSubscriptionDate(Date subscriptiondate) {
+		this.subscriptionDate = subscriptiondate;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setTwicksUsers(List<User> twicksUsers) {
+		this.twicksUsers = twicksUsers;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
-
-    public void setSubscriptionDate(Date subscriptiondate) {
-        this.subscriptionDate = subscriptiondate;
-    }
-
-    public void setTwicksUsers(List<User> twicksUsers) {
-        this.twicksUsers = twicksUsers;
-    }
-
-    @Override
-    public String toString() {
-        return "Company [id=" + this.id + ", address=" + this.address
-                + ", createdon=" + this.createdon + ", name=" + this.name
-                + ", subscriptiondate=" + this.subscriptionDate + ", products="
-                + this.products + ", results=" + this.results
-                + ", twicksUsers=" + this.twicksUsers + "]";
-    }
+	@Override
+	public String toString() {
+		return "Company [id=" + this.id + ", address=" + this.address
+				+ ", createdon=" + this.createdon + ", name=" + this.name
+				+ ", subscriptiondate=" + this.subscriptionDate + ", products="
+				+ this.products + ", twicksUsers=" + this.twicksUsers + "]";
+	}
 }

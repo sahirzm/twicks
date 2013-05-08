@@ -1,9 +1,12 @@
 package in.ac.vit.twicks.servlets;
 
+import in.ac.vit.twicks.datastorage.service.api.DailyReportService;
+import in.ac.vit.twicks.datastorage.service.api.HourlyReportService;
 import in.ac.vit.twicks.datastorage.service.api.StatusService;
 import in.ac.vit.twicks.search.fetchers.FetchingService;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,6 +26,10 @@ public class TestServlet extends HttpServlet {
 	private FetchingService fetchingService;
 	@EJB
 	private StatusService statusService;
+	@EJB
+	private HourlyReportService hourlyReportService;
+	@EJB
+	private DailyReportService dailyReportService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,7 +46,21 @@ public class TestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		this.fetchingService.startFetchers();
+		// this.fetchingService.startFetchers();
+		for (int j = 5; j < 9; j++) {
+			Calendar calendar = Calendar.getInstance();
+			for (int i = 0; i < 24; i++) {
+				calendar.set(Calendar.HOUR_OF_DAY, i);
+				calendar.set(Calendar.MINUTE, 0);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				calendar.set(Calendar.DAY_OF_MONTH, j);
+				calendar.set(Calendar.MONTH, 5);
+				this.hourlyReportService.generateReport(calendar.getTime());
+			}
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			this.dailyReportService.generateReport(calendar.getTime());
+		}
 	}
 
 	/**

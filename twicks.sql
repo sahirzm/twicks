@@ -54,6 +54,7 @@ foreign key(company_id) references company(id) on update cascade on delete casca
 );
 
 insert into twicks_user values (1,'Sahir','Zulfikar','Maredia','8898-985-498',null,'admin','sahirzm@gmail.com',now(),null,'sahir',md5('sahir123'),null);
+insert into twicks_user values (2,'Sahir','Zulfikar','Maredia','8898-985-498',null,'customer','customer@gmail.com',now(),null,'cust1',md5('customer123'),null);
 
 drop table status cascade;
 

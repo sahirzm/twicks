@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 
 @WebServlet(urlPatterns = "/login.do")
 public class LoginController extends HttpServlet {
-	protected transient Logger log = Logger.getLogger(getClass());
+	protected transient Logger log = Logger.getLogger(this.getClass());
 	@Inject
 	private UserService userService;
 	@Inject
@@ -40,16 +40,16 @@ public class LoginController extends HttpServlet {
 			try {
 				request.login(username, password);
 				HttpSession session = request.getSession();
-				currentUser.setUser(this.getUserService().authenticate(
+				this.currentUser.setUser(this.getUserService().authenticate(
 						username, password));
-				session.setAttribute("currentUser", currentUser.getUser());
-				currentUser.getUser().setLastloggedin(new Date());
-				this.userService.update(currentUser.getUser());
+				session.setAttribute("currentUser", this.currentUser.getUser());
+				this.currentUser.getUser().setLastloggedin(new Date());
+				this.userService.update(this.currentUser.getUser());
 				response.sendRedirect("homepage.do");
 				return;
 			} catch (Exception e) {
-				log.error("Login failed for " + username + " with password = "
-						+ password);
+				this.log.error("Login failed for " + username
+						+ " with password = " + password, e);
 			}
 		}
 		request.setAttribute("loginError", "Invalid Credentials");
@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
 	}
 
 	protected UserService getUserService() {
-		return userService;
+		return this.userService;
 	}
 
 }

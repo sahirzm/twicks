@@ -40,6 +40,9 @@ public class HomePage extends HttpServlet {
 		Principal pl = request.getUserPrincipal();
 		TwicksPrincipal tp = (TwicksPrincipal) pl;
 		User user = tp.getUser();
+		if (user == null) {
+			this.log.error("User is null");
+		}
 		if (partial) {
 			request.getRequestDispatcher(
 					"/WEB-INF/views/" + user.getRole() + "home.jsp").forward(

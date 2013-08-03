@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.apache.log4j.Logger;
 import org.jboss.security.auth.spi.Util;
 
 /**
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Inject
 	private Validator validator;
+	protected transient Logger log = Logger.getLogger(this.getClass());
 
 	@Override
 	public User authenticate(String username, String password) {
@@ -86,6 +88,7 @@ public class UserServiceImpl implements UserService {
 		if ((user.getRole() != null)
 				&& user.getRole().equals(UserRoles.CUSTOMER)) {
 			if (user.getCompany() == null) {
+				this.log.error("No Company defined for user " + user.fullName());
 				exp.addError("company", "cannot be empty for customer");
 			}
 		}
